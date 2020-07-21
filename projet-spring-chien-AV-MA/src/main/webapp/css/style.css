@@ -1,0 +1,13 @@
+.btnInline {
+  float: left;
+  margin-left: 5px;
+}
+
+.tooltip-inner {
+  max-width: none;
+  white-space: nowrap;
+}
+
+h4 {
+  margin-top: 0px;
+}
