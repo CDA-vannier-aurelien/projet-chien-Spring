@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import fr.afpa.bean.Chien;
 import fr.afpa.bean.Client;
 import fr.afpa.dao.IClientDao;
 import fr.afpa.service.IClientService;
@@ -55,4 +56,8 @@ public class ClientServiceImpl implements IClientService {
 
 	}
 
+	public List<Chien> getListChiens(){
+		return null;
+	}
+	
 }

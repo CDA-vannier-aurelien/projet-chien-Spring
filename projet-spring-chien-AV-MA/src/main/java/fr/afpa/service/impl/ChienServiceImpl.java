@@ -15,25 +15,23 @@ public class ChienServiceImpl implements IChienService {
 
 	@Override
 	public List<Chien> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		return chienDao.getListBdd();
 	}
 
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
+		chienDao.deleteByIdBdd(id);
 
 	}
 
 	@Override
 	public Chien selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return chienDao.selectByIdBdd(id);
 	}
 
 	@Override
 	public void ajouterChien(Chien c) {
-		// TODO Auto-generated method stub
+		chienDao.ajoutClientBdd(c);
 
 	}
 
