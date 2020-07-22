@@ -38,6 +38,7 @@ grant all privileges on bdd_chien.* to 'chien_user'@'%';
 
   CREATE TABLE Chien(
           id_chien       Int  Auto_increment  NOT NULL ,
+          race           varchar (50) NOT NULL,
           nom            Varchar (50) NOT NULL ,
           couleur        Varchar (20) NOT NULL ,
           age            Smallint NOT NULL ,
