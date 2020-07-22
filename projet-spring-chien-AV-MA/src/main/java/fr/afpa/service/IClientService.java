@@ -12,6 +12,8 @@ public interface IClientService {
 	public void deleteById(int id);
 
 	public Client selectById(int id);
+	
+	public Client selectByLogin(String pLogin);
 
 	public void ajouterClient(Client c);
 

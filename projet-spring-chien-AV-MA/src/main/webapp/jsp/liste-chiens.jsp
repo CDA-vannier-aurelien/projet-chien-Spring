@@ -71,27 +71,27 @@
 							<div class="modal-body">
 
 								<div class="form-group">
-									<input id="nom" type="text" name="nom"
-										class="form-control" placeholder="Nom du chien">
+									<input id="nom" type="text" name="nom" class="form-control"
+										placeholder="Nom du chien">
 								</div>
 								<div class="form-group">
 									<input id="race" type="text" name="race" class="form-control"
 										placeholder="Race">
 								</div>
 								<div class="form-group">
-									<input id="couleur" type="text" name="couleur" class="form-control"
-										placeholder="Couleur du pelage">
+									<input id="couleur" type="text" name="couleur"
+										class="form-control" placeholder="Couleur du pelage">
 								</div>
-								
+
 								<div class="form-group">
 									<input id="age" type="text" name="age" class="form-control"
 										placeholder="Age">
 								</div>
-								
-<!-- 								<div class="form-group"> -->
-<!-- 									<input id="date_naissance" type="date" name="date_naissance" -->
-<!-- 										class="form-control" placeholder="Date de naissance"> -->
-<!-- 								</div> -->
+
+								<!-- 								<div class="form-group"> -->
+								<!-- 									<input id="date_naissance" type="date" name="date_naissance" -->
+								<!-- 										class="form-control" placeholder="Date de naissance"> -->
+								<!-- 								</div> -->
 
 							</div>
 							<div class="modal-footer">

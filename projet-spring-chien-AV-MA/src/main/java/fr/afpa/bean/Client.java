@@ -26,6 +26,15 @@ public class Client {
 		this.nom = nom;
 		this.listeChiens = listeChiens;
 	}
+
+	public Client(String login, String password, String prenom, String nom) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.prenom = prenom;
+		this.nom = nom;
+	}
+
 	
 	
 	

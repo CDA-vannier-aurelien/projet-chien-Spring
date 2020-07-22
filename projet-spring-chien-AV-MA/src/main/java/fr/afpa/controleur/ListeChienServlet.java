@@ -30,8 +30,8 @@ public class ListeChienServlet extends HttpServlet {
 
 		List<Chien> listeDeChiens = chienService.getList();
 
-		request.setAttribute("lisetDeChiens", listeDeChiens);
-		this.getServletContext().getRequestDispatcher("/jsp/liste-Chien.jsp").forward(request, response);
+		request.setAttribute("listeDeChiens", listeDeChiens);
+		this.getServletContext().getRequestDispatcher("/jsp/liste-chiens.jsp").forward(request, response);
 		// Cette Jsp est à modifier en fonction du nom donné.
 	}
 

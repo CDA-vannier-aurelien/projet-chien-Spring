@@ -10,6 +10,8 @@ public interface IClientDao {
 	public void deleteByIdBdd(int id);
 
 	public Client selectByIdBdd(int id);
+	
+	public Client selectByLogin(String pLogin);
 
 	public Client ajoutClientBdd(Client c);
 
