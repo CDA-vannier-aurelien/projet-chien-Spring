@@ -31,7 +31,7 @@ public class ChienServiceImpl implements IChienService {
 
 	@Override
 	public void ajouterChien(Chien c) {
-		chienDao.ajoutClientBdd(c);
+		chienDao.ajoutChienBdd(c);
 
 	}
 
