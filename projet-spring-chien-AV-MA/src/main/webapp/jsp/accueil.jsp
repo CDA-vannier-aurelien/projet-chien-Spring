@@ -14,15 +14,16 @@
 	<div class="jumbotron">
 		<div class="container">
 		<h1>Connexion</h1>
-			<form action="affichage" method="post">
+		<h2 class="text-danger">${message}</h2>
+			<form action="listeChiens" method="post">
 
 				<div class="form-group">
 					<input id="login" type="text" name="login" class="form-control"
-						placeholder="Login">
+						placeholder="Login" required>
 				</div>
 				<div class="form-group">
 					<input id="password" type="password" name="password"
-						class="form-control" placeholder="Password">
+						class="form-control" placeholder="Password" required>
 				</div>
 
 				<button class="btn btn-primary" type="submit">Go</button>
@@ -32,6 +33,10 @@
 					data-target="#exampleModal">Inscription</button>
 
 			</form>
+			
+			
+			
+			
 
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -50,19 +55,19 @@
 
 								<div class="form-group">
 									<input id="prenom" type="text" name="prenom"
-										class="form-control" placeholder="Prénom">
+										class="form-control" placeholder="Prénom" required>
 								</div>
 								<div class="form-group">
 									<input id="nom" type="text" name="nom" class="form-control"
-										placeholder="Nom">
+										placeholder="Nom" required>
 								</div>
 								<div class="form-group">
 									<input id="login" type="text" name="login"
-										class="form-control" placeholder="Login">
+										class="form-control" placeholder="Login" required>
 								</div>
 								<div class="form-group">
-									<input id="password" type="text" name="password" class="form-control"
-										placeholder="Password">
+									<input id="password" type="password" name="password" class="form-control"
+										placeholder="Password" required>
 								</div>
 
 							</div>

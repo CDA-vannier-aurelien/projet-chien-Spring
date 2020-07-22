@@ -46,7 +46,7 @@ public class AjoutClientServlet extends AbstractServletController {
 		Client c = new Client(login, password, prenom , nom , new ArrayList<Chien>());
 		clientService.ajouterClient(c);
 
-		response.sendRedirect("index.html");
+		this.getServletContext().getRequestDispatcher("/jsp/listeTest.jsp").forward(request, response);
 		
 	}
 

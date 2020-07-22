@@ -59,5 +59,10 @@ public class ClientServiceImpl implements IClientService {
 	public List<Chien> getListChiens(){
 		return null;
 	}
+
+	@Override
+	public Client selectByLogin(String pLogin) {
+		return clientDao.selectByLogin(pLogin);
+	}
 	
 }
