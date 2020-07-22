@@ -21,7 +21,7 @@ import fr.afpa.service.IClientService;
 /**
  * Servlet implementation class AjoutClient
  */
-@WebServlet("/AjoutClient")
+@WebServlet("/ajoutClient")
 public class AjoutClientServlet extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
       
@@ -31,7 +31,7 @@ public class AjoutClientServlet extends AbstractServletController {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/jsp/ajout-client.jsp").forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,10 +43,12 @@ public class AjoutClientServlet extends AbstractServletController {
 		String password = request.getParameter("password");
 		String prenom = request.getParameter("nom").toLowerCase();
 		String nom = request.getParameter("prenom").toLowerCase();
-		Client c = new Client(login, password, prenom , nom , new ArrayList<Chien>());
+		Client c = new Client(login, password, prenom , nom);
 		clientService.ajouterClient(c);
 
-		this.getServletContext().getRequestDispatcher("/jsp/listeTest.jsp").forward(request, response);
+		response.sendRedirect("ListeChien.do");
+		
+		
 		
 	}
 

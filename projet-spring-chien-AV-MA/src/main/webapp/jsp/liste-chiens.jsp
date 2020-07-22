@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ page import="fr.afpa.bean.Chien"%>
+<%@ page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +31,7 @@
 				</thead>
 				<tbody>
 					<%
-						List<Chien> listeChiens = clientDao.getListeChiens();
+						List<Chien> listeChiens = (List<Chien>) request.getAttribute("listeDeChiens");
 					int cpt = 1;
 					for (Chien c : listeChiens) {
 					%>
@@ -39,8 +43,11 @@
 						<td><%=c.getRace()%></td>
 						<td><%=c.getCouleur()%></td>
 						<td><%=c.getAge()%></td>
-						<td><a href="update?id=<%=c.getId()%>" class="btn btn-warning" role="button">Update</a></td>
-						<td><a href="deleteServlet?id=<%=c.getId()%>" class="btn btn-danger" role="button">Delete</a></td>
+						
+						<td><a href="update?id=<%=c.getIdChien()%>"
+							class="btn btn-warning" role="button">Update</a></td>
+						<td><a href="deleteServlet?id=<%=c.getIdChien()%>"
+							class="btn btn-danger" role="button">Delete</a></td>
 					</tr>
 					<%
 						cpt++;
@@ -69,27 +76,27 @@
 							<div class="modal-body">
 
 								<div class="form-group">
-									<input id="nom" type="text" name="nom"
-										class="form-control" placeholder="Nom du chien">
+									<input id="nom" type="text" name="nom" class="form-control"
+										placeholder="Nom du chien">
 								</div>
 								<div class="form-group">
 									<input id="race" type="text" name="race" class="form-control"
 										placeholder="Race">
 								</div>
 								<div class="form-group">
-									<input id="couleur" type="text" name="couleur" class="form-control"
-										placeholder="Couleur du pelage">
+									<input id="couleur" type="text" name="couleur"
+										class="form-control" placeholder="Couleur du pelage">
 								</div>
-								
+
 								<div class="form-group">
 									<input id="age" type="text" name="age" class="form-control"
 										placeholder="Age">
 								</div>
-								
-<!-- 								<div class="form-group"> -->
-<!-- 									<input id="date_naissance" type="date" name="date_naissance" -->
-<!-- 										class="form-control" placeholder="Date de naissance"> -->
-<!-- 								</div> -->
+
+								<!-- 								<div class="form-group"> -->
+								<!-- 									<input id="date_naissance" type="date" name="date_naissance" -->
+								<!-- 										class="form-control" placeholder="Date de naissance"> -->
+								<!-- 								</div> -->
 
 							</div>
 							<div class="modal-footer">

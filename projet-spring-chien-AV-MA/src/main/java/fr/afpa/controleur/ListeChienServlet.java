@@ -28,10 +28,10 @@ public class ListeChienServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<Chien> personnes = chienService.getList();
+		List<Chien> listeDeChiens = chienService.getList();
 
-		request.setAttribute("personnes", personnes);
-		this.getServletContext().getRequestDispatcher("/jsp/liste-Chien.jsp").forward(request, response);
+		request.setAttribute("listeDeChiens", listeDeChiens);
+		this.getServletContext().getRequestDispatcher("/jsp/liste-chiens.jsp").forward(request, response);
 		// Cette Jsp est à modifier en fonction du nom donné.
 	}
 

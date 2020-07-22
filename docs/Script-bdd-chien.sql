@@ -23,12 +23,11 @@ grant all privileges on bdd_chien.* to 'chien_user'@'%';
   #------------------------------------------------------------
 
   CREATE TABLE Client(
-          id_client Int  Auto_increment  NOT NULL ,
           login          Varchar (20) NOT NULL ,
           password       Varchar (20) NOT NULL ,
           prenom         Varchar (50) NOT NULL ,
           nom            Varchar (50) NOT NULL
-  	,CONSTRAINT Client_PK PRIMARY KEY (id_client)
+  	,CONSTRAINT Client_PK PRIMARY KEY (login)
   )ENGINE=InnoDB;
 
 
