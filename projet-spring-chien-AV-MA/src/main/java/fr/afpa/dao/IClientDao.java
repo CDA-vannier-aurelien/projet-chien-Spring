@@ -11,7 +11,7 @@ public interface IClientDao {
 
 	public Client selectByIdBdd(int id);
 
-	public void ajoutClientBdd(Client c);
+	public Client ajoutClientBdd(Client c);
 
-	public void updateClientBdd(Client c);
+	public Client updateClientBdd(Client c);
 }
