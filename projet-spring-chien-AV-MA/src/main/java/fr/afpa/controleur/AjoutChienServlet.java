@@ -1,6 +1,8 @@
 package fr.afpa.controleur;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,14 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import fr.afpa.service.IClientService;
+import fr.afpa.bean.Chien;
+import fr.afpa.service.IChienService;
 
 @WebServlet(urlPatterns = ("/AjoutChien.do"))
 public class AjoutChienServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	IClientService clientService;
+	IChienService chienService;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,16 +35,53 @@ public class AjoutChienServlet extends HttpServlet {
 			throws ServletException, IOException {
 		WebApplicationContext context = WebApplicationContextUtils
 				.getWebApplicationContext(request.getServletContext());
-		clientService = context.getBean(IClientService.class);
+		chienService = context.getBean(IChienService.class);
 //		if(request.getParameter("nom").matches("\\[a-zA-Z]+"))
 
-		String nom = request.getParameter("nom").toLowerCase();
-		String race = request.getParameter("race").toLowerCase();
-		String couleur = request.getParameter("race").toLowerCase();
-		String age = request.getParameter("date");
-//		Chien chien = new Chien (nom, race, couleur, age);			//TODO!!!!!!
-//		chienService.ajouterChien(p);
+		// ajout session client
 
-		response.sendRedirect("index.html");
+		String vNom = request.getParameter("nom").toLowerCase();
+		String vRace = request.getParameter("race").toLowerCase();
+		String vCouleur = request.getParameter("race").toLowerCase();
+		String strAge = request.getParameter("date");
+		boolean parsable = parseTest(strAge);
+		if (!Pattern.matches("[\\D]+", vNom) || !Pattern.matches("[\\D]+", vRace)
+				|| !Pattern.matches("[\\D]+", vCouleur) || parsable == false) {
+			request.setAttribute("error", "Erreur de saisie");
+			this.getServletContext().getRequestDispatcher("/WEB-INF/ajoutChien.jsp").forward(request, response);
+		} else {
+			boolean existe = false;
+			byte vAge = Byte.parseByte(strAge);
+			Chien chien = new Chien(vNom, vRace, vCouleur, vAge);
+			List<Chien> listeChien = chienService.getList();
+			for (Chien vChien : listeChien) {
+				if (vChien.getNom().equals(chien.getNom()) && vChien.getRace().equals(chien.getRace())
+						&& vChien.getAge() == (chien.getAge())) {
+					existe = true;
+				}
+			}
+			if (existe == true) {
+				request.setAttribute("existe", "ce chien est déjà enregistrée!");
+				this.getServletContext().getRequestDispatcher("/WEB-INF/ajoutChien.jsp").forward(request, response);
+			} else {
+				chienService.ajouterChien(chien);
+
+			}
+			request.setAttribute("perso", listeChien);
+		}
+		this.getServletContext().getRequestDispatcher("/WEB-INF/affichageListeChien.jsp").forward(request, response);
+		response.sendRedirect("ListeChien.do");
+
+	}
+
+	private boolean parseTest(String strAge) {
+		boolean res = false;
+		try {
+			byte age = Byte.parseByte(strAge);
+			res = true;
+		} catch (Exception e) {
+			res = false;
+		}
+		return res;
 	}
 }
