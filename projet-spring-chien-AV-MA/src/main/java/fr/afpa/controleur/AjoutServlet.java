@@ -40,7 +40,7 @@ public class AjoutServlet extends HttpServlet {
 		String couleur = request.getParameter("race").toLowerCase();
 		String age = request.getParameter("date");
 //		Chien p = new Personne(nom, race, couleur, age);			//TODO!!!!!!
-//		clientService.ajoutChien(p);
+//		clientService.ajouterChien(p);
 
 		response.sendRedirect("index.html");
 	}
