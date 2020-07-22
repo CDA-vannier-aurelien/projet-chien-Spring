@@ -18,31 +18,31 @@ grant all privileges on bdd_chien.* to 'chien_user'@'%';
 
 
 
-#------------------------------------------------------------
-# Table: Chien
-#------------------------------------------------------------
+  #------------------------------------------------------------
+  # Table: Client
+  #------------------------------------------------------------
 
-CREATE TABLE Chien(
-        id_chien Int  Auto_increment  NOT NULL ,
-        nom      Varchar (50) NOT NULL ,
-        couleur  Varchar (20) NOT NULL ,
-        age      Smallint NOT NULL
-	,CONSTRAINT Chien_PK PRIMARY KEY (id_chien)
-)ENGINE=InnoDB;
+  CREATE TABLE Client(
+          id_client Int  Auto_increment  NOT NULL ,
+          login          Varchar (20) NOT NULL ,
+          password       Varchar (20) NOT NULL ,
+          prenom         Varchar (50) NOT NULL ,
+          nom            Varchar (50) NOT NULL
+  	,CONSTRAINT Client_PK PRIMARY KEY (id_client)
+  )ENGINE=InnoDB;
 
 
-#------------------------------------------------------------
-# Table: Client
-#------------------------------------------------------------
+  #------------------------------------------------------------
+  # Table: Chien
+  #------------------------------------------------------------
 
-CREATE TABLE Client(
-        id_utilisateur Int  Auto_increment  NOT NULL ,
-        login          Varchar (20) NOT NULL ,
-        password       Varchar (20) NOT NULL ,
-        prenom         Varchar (50) NOT NULL ,
-        nom            Varchar (50) NOT NULL ,
-        id_chien       Int NOT NULL
-	,CONSTRAINT Client_PK PRIMARY KEY (id_utilisateur)
+  CREATE TABLE Chien(
+          id_chien       Int  Auto_increment  NOT NULL ,
+          nom            Varchar (50) NOT NULL ,
+          couleur        Varchar (20) NOT NULL ,
+          age            Smallint NOT NULL ,
+          id_client Int NOT NULL
+  	,CONSTRAINT Chien_PK PRIMARY KEY (id_chien)
 
-	,CONSTRAINT Client_Chien_FK FOREIGN KEY (id_chien) REFERENCES Chien(id_chien)
-)ENGINE=InnoDB;
+  	,CONSTRAINT Chien_Client_FK FOREIGN KEY (id_client) REFERENCES Client(id_client)
+  )ENGINE=InnoDB;
