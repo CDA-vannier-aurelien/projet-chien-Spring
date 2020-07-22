@@ -14,8 +14,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import fr.afpa.service.IClientService;
 
-@WebServlet(urlPatterns = ("/Ajout.do"))
-public class AjoutServlet extends HttpServlet {
+@WebServlet(urlPatterns = ("/AjoutChien.do"))
+public class AjoutChienServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -24,7 +24,7 @@ public class AjoutServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/jsp/ajout.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/jsp/ajoutChien.jsp").forward(request, response);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class AjoutServlet extends HttpServlet {
 		String race = request.getParameter("race").toLowerCase();
 		String couleur = request.getParameter("race").toLowerCase();
 		String age = request.getParameter("date");
-//		Chien p = new Personne(nom, race, couleur, age);			//TODO!!!!!!
-//		clientService.ajouterChien(p);
+//		Chien chien = new Chien (nom, race, couleur, age);			//TODO!!!!!!
+//		chienService.ajouterChien(p);
 
 		response.sendRedirect("index.html");
 	}
