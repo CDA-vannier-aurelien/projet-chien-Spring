@@ -61,7 +61,7 @@ public class AjoutChienServlet extends HttpServlet {
 				}
 			}
 			if (existe == true) {
-				request.setAttribute("existe", "ce chien est déjà enregistrée!");
+				request.setAttribute("existe", "ce chien est déjà enregistré!");
 				this.getServletContext().getRequestDispatcher("/WEB-INF/ajoutChien.jsp").forward(request, response);
 			} else {
 				chienService.ajouterChien(chien);
@@ -70,7 +70,6 @@ public class AjoutChienServlet extends HttpServlet {
 			request.setAttribute("perso", listeChien);
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/affichageListeChien.jsp").forward(request, response);
-		response.sendRedirect("ListeChien.do");
 
 	}
 
