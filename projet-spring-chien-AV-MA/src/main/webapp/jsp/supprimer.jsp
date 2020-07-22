@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Suppress</title>
+<title>Suppression d'un chien</title>
 </head>
 <body>
 
