@@ -11,8 +11,8 @@ public interface IChienDao {
 
 	public Chien selectByIdBdd(int id);
 
-	public void ajoutChienBdd(Chien c);
+	public Chien ajoutChienBdd(Chien c);
 
 	public void updateChienBdd(Chien c);
-	
+
 }
