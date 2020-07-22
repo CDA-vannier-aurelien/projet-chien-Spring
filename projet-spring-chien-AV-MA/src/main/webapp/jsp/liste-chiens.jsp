@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@ page import="fr.afpa.bean.Chien"%>
-<%@ page import="java.util.List"%>
-
+	<%@ page import="fr.afpa.bean.Chien"%>
+	<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +29,7 @@
 				</thead>
 				<tbody>
 					<%
-						List<Chien> listeChiens = (List<Chien>) request.getAttribute("listeDeChiens");
+						List<Chien> listeChiens =(List<Chien>) request.getAttribute("listeDeChiens");
 					int cpt = 1;
 					for (Chien c : listeChiens) {
 					%>
@@ -43,11 +41,8 @@
 						<td><%=c.getRace()%></td>
 						<td><%=c.getCouleur()%></td>
 						<td><%=c.getAge()%></td>
-						
-						<td><a href="update?id=<%=c.getIdChien()%>"
-							class="btn btn-warning" role="button">Update</a></td>
-						<td><a href="deleteServlet?id=<%=c.getIdChien()%>"
-							class="btn btn-danger" role="button">Delete</a></td>
+						<td><a href="update?id=<%=c.getIdChien()%>" class="btn btn-warning" role="button">Update</a></td>
+						<td><a href="deleteServlet?id=<%=c.getIdChien()%>" class="btn btn-danger" role="button">Delete</a></td>
 					</tr>
 					<%
 						cpt++;
