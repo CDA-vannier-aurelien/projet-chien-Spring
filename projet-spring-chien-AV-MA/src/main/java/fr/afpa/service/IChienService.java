@@ -16,4 +16,6 @@ public interface IChienService {
 
 	public void updateChien(Chien c);
 
+	public List<Chien> getListChienByClient(String login);
+
 }

@@ -3,11 +3,13 @@ package fr.afpa.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import fr.afpa.bean.Chien;
 import fr.afpa.dao.IChienDao;
 import fr.afpa.service.IChienService;
 
+@Service
 public class ChienServiceImpl implements IChienService {
 
 	@Autowired
@@ -39,6 +41,12 @@ public class ChienServiceImpl implements IChienService {
 	public void updateChien(Chien c) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Chien> getListChienByClient(String pLogin) {
+		chienDao.getListChienByClient(pLogin);
+		return null;
 	}
 
 }
