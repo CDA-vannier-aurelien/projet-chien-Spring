@@ -8,11 +8,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import fr.afpa.bean.Client;
 import fr.afpa.dao.IClientDao;
 import fr.afpa.dao.config.IDatabaseConnection;
 
+@Repository
 public class ClientDaoImpl implements IClientDao {
 
 	Connection connection;
@@ -60,10 +62,6 @@ public class ClientDaoImpl implements IClientDao {
 			ps.setString(3, pClient.getPrenom());
 			ps.setString(4, pClient.getNom());
 			ps.executeUpdate();
-			ResultSet resultat = ps.getGeneratedKeys();
-			if (resultat.next()) {
-				pClient.setIdClient(resultat.getInt(1));
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +78,6 @@ public class ClientDaoImpl implements IClientDao {
 			ps.setString(2, pClient.getPassword());
 			ps.setString(3, pClient.getPrenom());
 			ps.setString(4, pClient.getNom());
-			ps.setInt(5, pClient.getIdClient());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -99,7 +96,6 @@ public class ClientDaoImpl implements IClientDao {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				c = new Client();
-				c.setIdClient(rs.getInt("id_client"));
 				c.setPassword(rs.getString("password"));
 				c.setPrenom(rs.getString("prenom"));
 				c.setNom(rs.getString("nom"));
