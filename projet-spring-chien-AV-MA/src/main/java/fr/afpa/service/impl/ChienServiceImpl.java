@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.afpa.bean.Chien;
-import fr.afpa.bean.Client;
 import fr.afpa.dao.IChienDao;
 import fr.afpa.service.IChienService;
 
@@ -47,6 +46,12 @@ public class ChienServiceImpl implements IChienService {
 	@Override
 	public List<Chien> getListChienByClient(String pLogin) {
 		return chienDao.getListChienByClient(pLogin);
+
+	}
+
+	@Override
+	public Chien selectByName(String nom) {
+		return chienDao.selectByNameBdd(nom);
 
 	}
 

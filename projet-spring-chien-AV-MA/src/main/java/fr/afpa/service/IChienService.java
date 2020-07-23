@@ -3,7 +3,6 @@ package fr.afpa.service;
 import java.util.List;
 
 import fr.afpa.bean.Chien;
-import fr.afpa.bean.Client;
 
 public interface IChienService {
 
@@ -12,6 +11,8 @@ public interface IChienService {
 	public void deleteById(int id);
 
 	public Chien selectById(int id);
+
+	public Chien selectByName(String nom);
 
 	public void ajouterChien(Chien c, String pLogin);
 
