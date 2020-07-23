@@ -28,8 +28,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%
+					<% 
 						List<Chien> listeChiens =(List<Chien>) request.getAttribute("listeDeChiens");
+					if(listeChiens != null){
 					int cpt = 1;
 					for (Chien c : listeChiens) {
 					%>
@@ -46,7 +47,7 @@
 					</tr>
 					<%
 						cpt++;
-					}
+					}}
 					%>
 				</tbody>
 			</table>
