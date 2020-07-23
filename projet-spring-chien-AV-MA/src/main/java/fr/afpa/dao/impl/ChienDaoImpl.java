@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class ChienDaoImpl implements IChienDao {
 		System.out.println(pLogin);
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("insert into chien (nom, race, couleur, age, login) values (?,?,?,?,?); ");
+					.prepareStatement("insert into chien (nom, race, couleur, age, login) values (?,?,?,?,?); ", Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, pChien.getNom());
 			ps.setString(2, pChien.getRace());

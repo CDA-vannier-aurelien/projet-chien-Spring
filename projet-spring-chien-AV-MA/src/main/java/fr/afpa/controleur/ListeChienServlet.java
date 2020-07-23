@@ -32,7 +32,7 @@ public class ListeChienServlet extends AbstractServletController {
 		HttpSession session = request.getSession();
 		Client c = ((Client) session.getAttribute("client"));
 		List<Chien> listeDeChiens = chienService.getListChienByClient(c.getLogin());
-		request.setAttribute("listeDeChiens", listeDeChiens);
+		request.setAttribute("listechiens", listeDeChiens);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/liste-chiens.jsp").forward(request, response);
 		// Cette Jsp est à modifier en fonction du nom donné.
 	}

@@ -13,7 +13,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-		<%@ include file="clientAjoute.jsp" %>
+<%-- 		<%@ include file="clientAjoute.jsp" %> --%>
 	<div class="jumbotron">
 		<div class="container">
 		
