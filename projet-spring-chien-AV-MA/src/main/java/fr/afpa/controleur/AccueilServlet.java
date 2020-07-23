@@ -17,20 +17,16 @@ import fr.afpa.service.IClientService;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet (urlPatterns={"/accueil"})
-public class TestServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/accueil" })
+public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	IClientService clientService;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 	}
 
 	@Override
@@ -48,18 +44,18 @@ public class TestServlet extends HttpServlet {
 			// On récupère la personne avec login
 			c = clientService.selectByLogin(login);
 		} catch (Exception e) {
-		 message = "Login et/ou password non valide";
-		 request.setAttribute("message", message);
-		 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
+			message = "Login et/ou password non valide";
+			request.setAttribute("message", message);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 		}
 
 		if (c.getPassword().equals(password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("client", c);
 			message = "Connexion ok";
-			 request.setAttribute("message", message);
+			request.setAttribute("message", message);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);
-		}else {
+		} else {
 			message = "Login et/ou password non valide (wouaf)";
 			request.setAttribute("message", message);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
