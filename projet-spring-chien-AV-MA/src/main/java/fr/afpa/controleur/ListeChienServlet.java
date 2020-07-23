@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.afpa.bean.Chien;
+import fr.afpa.bean.Client;
 import fr.afpa.service.IChienService;
 
 /**
@@ -27,8 +29,9 @@ public class ListeChienServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		List<Chien> listeDeChiens = chienService.getList();
+		HttpSession session = request.getSession();
+		Client c = ((Client) session.getAttribute("client"));
+		List<Chien> listeDeChiens = chienService.getListChienByClient(c.getLogin());
 
 		request.setAttribute("listeDeChiens", listeDeChiens);
 		this.getServletContext().getRequestDispatcher("/jsp/liste-chiens.jsp").forward(request, response);

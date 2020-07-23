@@ -27,29 +27,6 @@ public class ChienDaoImpl implements IChienDao {
 	}
 
 	@Override
-	public List<Chien> getListBdd() {
-		List<Chien> listeChiens = new ArrayList<>();
-		try {
-			PreparedStatement ps = connection
-					.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c order by c.age desc;");
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Chien chien = new Chien();
-
-				chien.setNom(rs.getString("nom"));
-				chien.setRace(rs.getString("race"));
-				chien.setCouleur(rs.getString("couleur"));
-				chien.setAge(rs.getByte("age"));
-				listeChiens.add(chien);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return listeChiens;
-	}
-
-	@Override
 	public void deleteByIdBdd(int id) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("delete from chien where id_chien=" + id + ";");
@@ -120,6 +97,52 @@ public class ChienDaoImpl implements IChienDao {
 
 		}
 
+	}
+
+	@Override
+	public List<Chien> getListBdd() {
+		List<Chien> listeChiens = new ArrayList<>();
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c order by c.age desc;");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Chien chien = new Chien();
+
+				chien.setNom(rs.getString("nom"));
+				chien.setRace(rs.getString("race"));
+				chien.setCouleur(rs.getString("couleur"));
+				chien.setAge(rs.getByte("age"));
+				listeChiens.add(chien);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listeChiens;
+	}
+
+	@Override
+	public List<Chien> getListChienByClient(String login) {
+		List<Chien> listeChiens = new ArrayList<>();
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c WHERE c.login = " + login);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Chien chien = new Chien();
+
+				chien.setNom(rs.getString("nom"));
+				chien.setRace(rs.getString("race"));
+				chien.setCouleur(rs.getString("couleur"));
+				chien.setAge(rs.getByte("age"));
+				listeChiens.add(chien);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listeChiens;
 	}
 
 }
