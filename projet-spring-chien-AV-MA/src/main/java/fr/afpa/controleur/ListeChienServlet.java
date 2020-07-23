@@ -31,7 +31,6 @@ public class ListeChienServlet extends AbstractServletController {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Client c = ((Client) session.getAttribute("client"));
-		System.out.println(c + " dans la session de liste chien");
 		List<Chien> listeDeChiens = chienService.getListChienByClient(c.getLogin());
 
 		request.setAttribute("listeDeChiens", listeDeChiens);
