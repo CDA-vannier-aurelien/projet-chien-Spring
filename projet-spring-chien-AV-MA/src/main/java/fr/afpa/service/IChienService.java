@@ -3,6 +3,7 @@ package fr.afpa.service;
 import java.util.List;
 
 import fr.afpa.bean.Chien;
+import fr.afpa.bean.Client;
 
 public interface IChienService {
 
