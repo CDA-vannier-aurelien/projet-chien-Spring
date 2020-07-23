@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,13 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.afpa.bean.Client;
+import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IClientService;
 
 /**
  * Servlet implementation class TestServlet
  */
 @WebServlet(urlPatterns = { "/accueil" })
-public class AccueilServlet extends HttpServlet {
+public class AccueilServlet extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	IClientService clientService;
@@ -33,10 +33,10 @@ public class AccueilServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Récup infos + création session + assosciation
-		Client c = null;
 		String message = "";
 
 		String login = request.getParameter("login");
+		Client c = null;
 		String password = request.getParameter("password");
 
 		// Test si présent en bdd

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,13 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.afpa.bean.Chien;
 import fr.afpa.bean.Client;
+import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IChienService;
 
 /**
  * Servlet implementation class ListeChienServlet
  */
 @WebServlet(urlPatterns = ("/ListeChien.do"))
-public class ListeChienServlet extends HttpServlet {
+public class ListeChienServlet extends AbstractServletController {
 	@Autowired
 	private IChienService chienService;
 
@@ -31,6 +31,7 @@ public class ListeChienServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Client c = ((Client) session.getAttribute("client"));
+		System.out.println(c + " dans la session de liste chien");
 		List<Chien> listeDeChiens = chienService.getListChienByClient(c.getLogin());
 
 		request.setAttribute("listeDeChiens", listeDeChiens);

@@ -89,13 +89,17 @@ public class ClientDaoImpl implements IClientDao {
 	@Override
 	public Client selectByLogin(String pLogin) {
 		Client c = null;
+		System.out.println("on est dans le clientadaoimpl");
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT login from client WHERE login = ?");
+			PreparedStatement ps = connection
+					.prepareStatement("SELECT password, prenom, nom from client WHERE login =?");
 			ps.setString(1, pLogin);
+
 			ps.executeUpdate();
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				c = new Client();
+				c.setLogin(pLogin);
 				c.setPassword(rs.getString("password"));
 				c.setPrenom(rs.getString("prenom"));
 				c.setNom(rs.getString("nom"));

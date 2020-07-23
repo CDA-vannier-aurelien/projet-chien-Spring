@@ -6,19 +6,17 @@ import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import fr.afpa.bean.Chien;
+import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IChienService;
 
 @WebServlet(urlPatterns = ("/AjoutChien.do"))
-public class AjoutChienServlet extends HttpServlet {
+public class AjoutChienServlet extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -33,9 +31,7 @@ public class AjoutChienServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		WebApplicationContext context = WebApplicationContextUtils
-				.getWebApplicationContext(request.getServletContext());
-		chienService = context.getBean(IChienService.class);
+
 //		if(request.getParameter("nom").matches("\\[a-zA-Z]+"))
 
 		// ajout session client
@@ -69,7 +65,8 @@ public class AjoutChienServlet extends HttpServlet {
 			}
 			request.setAttribute("perso", listeChien);
 		}
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/affichageListeChien.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/affichageListeChien.jsp").forward(request,
+				response);
 
 	}
 
