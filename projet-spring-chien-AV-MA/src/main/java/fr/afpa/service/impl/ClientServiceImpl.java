@@ -3,12 +3,14 @@ package fr.afpa.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import fr.afpa.bean.Chien;
 import fr.afpa.bean.Client;
 import fr.afpa.dao.IClientDao;
 import fr.afpa.service.IClientService;
 
+@Service
 public class ClientServiceImpl implements IClientService {
 
 	@Autowired
@@ -56,7 +58,7 @@ public class ClientServiceImpl implements IClientService {
 
 	}
 
-	public List<Chien> getListChiens(){
+	public List<Chien> getListChiens() {
 		return null;
 	}
 
@@ -64,5 +66,5 @@ public class ClientServiceImpl implements IClientService {
 	public Client selectByLogin(String pLogin) {
 		return clientDao.selectByLogin(pLogin);
 	}
-	
+
 }
