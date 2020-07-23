@@ -46,12 +46,14 @@ public class AjoutClientServlet extends AbstractServletController {
 
 		try {
 			clientService.ajouterClient(c);
-		} catch (Exception e) {
+			System.out.println("client ajouté en bdd");
 			HttpSession session = request.getSession();
 			session.setAttribute("client", c);
+			
+		} catch (Exception e) {
 			message = "Erreur lors de l'ajout";
 			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 		}
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);

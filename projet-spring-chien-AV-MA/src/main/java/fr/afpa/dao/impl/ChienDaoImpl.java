@@ -21,7 +21,6 @@ public class ChienDaoImpl implements IChienDao {
 	Connection connection;
 
 	@Autowired
-
 	public ChienDaoImpl(@Qualifier("connexionMysql") IDatabaseConnection databaseConnection) {
 		this.connection = databaseConnection.getConnection();
 	}
