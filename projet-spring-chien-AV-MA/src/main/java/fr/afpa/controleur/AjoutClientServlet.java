@@ -1,19 +1,15 @@
 package fr.afpa.controleur;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import fr.afpa.bean.Chien;
 import fr.afpa.bean.Client;
 import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IClientService;
@@ -51,12 +47,14 @@ public class AjoutClientServlet extends AbstractServletController {
 		try {
 			clientService.ajouterClient(c);
 		} catch (Exception e) {
+			HttpSession session = request.getSession();
+			session.setAttribute("client", c);
 			message = "Erreur lors de l'ajout";
 			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/jsp/clientAjoute.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);
 		}
 
-		this.getServletContext().getRequestDispatcher("/jsp/clientAjoute.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);
 
 	}
 

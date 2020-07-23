@@ -9,11 +9,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import fr.afpa.bean.Chien;
 import fr.afpa.dao.IChienDao;
 import fr.afpa.dao.config.IDatabaseConnection;
 
+@Repository
 public class ChienDaoImpl implements IChienDao {
 
 	Connection connection;

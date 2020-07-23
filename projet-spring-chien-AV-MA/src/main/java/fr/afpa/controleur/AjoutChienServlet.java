@@ -27,7 +27,7 @@ public class AjoutChienServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/jsp/ajoutChien.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ajoutChien.jsp").forward(request, response);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class AjoutChienServlet extends HttpServlet {
 		if (!Pattern.matches("[\\D]+", vNom) || !Pattern.matches("[\\D]+", vRace)
 				|| !Pattern.matches("[\\D]+", vCouleur) || parsable == false) {
 			request.setAttribute("error", "Erreur de saisie");
-			this.getServletContext().getRequestDispatcher("/WEB-INF/ajoutChien.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ajoutChien.jsp").forward(request, response);
 		} else {
 			boolean existe = false;
 			byte vAge = Byte.parseByte(strAge);
@@ -62,14 +62,14 @@ public class AjoutChienServlet extends HttpServlet {
 			}
 			if (existe == true) {
 				request.setAttribute("existe", "ce chien est déjà enregistré!");
-				this.getServletContext().getRequestDispatcher("/WEB-INF/ajoutChien.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ajoutChien.jsp").forward(request, response);
 			} else {
 				chienService.ajouterChien(chien);
 
 			}
 			request.setAttribute("perso", listeChien);
 		}
-		this.getServletContext().getRequestDispatcher("/WEB-INF/affichageListeChien.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/affichageListeChien.jsp").forward(request, response);
 
 	}
 

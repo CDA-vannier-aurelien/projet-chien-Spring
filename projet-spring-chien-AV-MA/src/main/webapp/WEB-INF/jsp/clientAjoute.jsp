@@ -14,10 +14,11 @@
 <div class="jumbotron">
 <div class="container">
 
+<!-- METTRE ça dans une navbar et afficher sur liste-chiens .jsp !! -->
 <h1>Bienvenue !</h1>
 <h3>Prénom : ${sessionScope.client.prenom}</h3>
 <h3>Nom : ${sessionScope.client.nom}</h3>
-<a href="" class="btn btn-primary" role="button">Voir mes chiens</a>
+<a href="ListeChien.do" class="btn btn-primary" role="button">Voir mes chiens</a>
 <a href="" class="btn btn-danger" role="button">Log Out</a>
 </div>
 </div>

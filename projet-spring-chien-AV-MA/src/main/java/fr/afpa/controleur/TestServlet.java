@@ -17,14 +17,14 @@ import fr.afpa.service.IClientService;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet(urlPatterns = { "/accueil" })
+@WebServlet (urlPatterns={"/accueil"})
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	IClientService clientService;
 
-	public TestServlet() {
-		super();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 	}
 
 	@Override
@@ -48,21 +48,21 @@ public class TestServlet extends HttpServlet {
 			// On récupère la personne avec login
 			c = clientService.selectByLogin(login);
 		} catch (Exception e) {
-			message = "Login et/ou password non valide";
-			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/jsp/accueil.jsp").forward(request, response);
+		 message = "Login et/ou password non valide";
+		 request.setAttribute("message", message);
+		 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 		}
 
 		if (c.getPassword().equals(password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("client", c);
 			message = "Connexion ok";
-			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/jsp/clientAjoute.jsp").forward(request, response);
-		} else {
+			 request.setAttribute("message", message);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);
+		}else {
 			message = "Login et/ou password non valide (wouaf)";
 			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/jsp/accueil.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 
 		}
 		// Récup du client avec id
