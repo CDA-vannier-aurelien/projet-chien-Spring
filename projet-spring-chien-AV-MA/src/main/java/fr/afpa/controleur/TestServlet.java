@@ -52,7 +52,7 @@ public class TestServlet extends HttpServlet {
 			session.setAttribute("client", c);
 			message = "Connexion ok";
 			 request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/jsp/liste-chiens.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/jsp/clientAjoute.jsp").forward(request, response);
 		}else {
 			message = "Login et/ou password non valide (wouaf)";
 			request.setAttribute("message", message);
