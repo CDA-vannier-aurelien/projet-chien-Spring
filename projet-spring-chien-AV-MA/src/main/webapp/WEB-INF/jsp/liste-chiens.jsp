@@ -13,8 +13,11 @@
 	crossorigin="anonymous">
 </head>
 <body>
+		<%@ include file="clientAjoute.jsp" %>
 	<div class="jumbotron">
 		<div class="container">
+		
+		
 			<h1>Liste de tous vos chiens</h1>
 			<h3 class="text-danger">${error}</h3>
 			<table class="table">
@@ -29,7 +32,7 @@
 				</thead>
 				<tbody>
 					<% 
-						List<Chien> listeChiens =(List<Chien>) request.getAttribute("listeDeChiens");
+						List<Chien> listeChiens =(List<Chien>) request.getAttribute("listechiens");
 					if(listeChiens != null){
 					int cpt = 1;
 					for (Chien c : listeChiens) {
