@@ -19,4 +19,6 @@ public interface IClientService {
 
 	public void updateClient(Client c);
 
+	public boolean checkSiExisteBDD(String pLogin);
+
 }

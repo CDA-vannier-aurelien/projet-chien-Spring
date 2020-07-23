@@ -111,20 +111,20 @@
 
 								<div class="form-group">
 									<input id="nom" type="text" name="nom" class="form-control"
-										placeholder="Nom du chien">
+										placeholder="Nom du chien" required>
 								</div>
 								<div class="form-group">
 									<input id="race" type="text" name="race" class="form-control"
-										placeholder="Race">
+										placeholder="Race" required>
 								</div>
 								<div class="form-group">
 									<input id="couleur" type="text" name="couleur"
-										class="form-control" placeholder="Couleur du pelage">
+										class="form-control" placeholder="Couleur du pelage" required>
 								</div>
 
 								<div class="form-group">
 									<input id="age" type="number" name="age" class="form-control"
-										placeholder="Age">
+										placeholder="Age" required>
 								</div>
 
 								<!-- 								<div class="form-group"> -->

@@ -62,4 +62,18 @@ public class ClientServiceImpl implements IClientService {
 		return clientDao.selectByLogin(pLogin);
 	}
 
+	@Override
+	public boolean checkSiExisteBDD(String pLogin) {
+		boolean existe = false;
+		// On récupère la liste des clients
+		List<Client> listeLoginClients = clientDao.getListBdd();
+		// On teste si le login est présent en bdd
+		for (Client client : listeLoginClients) {
+			if (pLogin.equals(client.getLogin())) {
+				existe = true;
+			}
+		}
+		return existe ? true : false;
+	}
+
 }

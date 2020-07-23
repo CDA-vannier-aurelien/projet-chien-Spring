@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,22 @@ public class ClientDaoImpl implements IClientDao {
 
 	@Override
 	public List<Client> getListBdd() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Client> list = new ArrayList<Client>();
+			try {
+				PreparedStatement ps = connection.prepareStatement("SELECT * FROM client;");
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					Client c = new Client();
+					c.setLogin(rs.getString("login"));
+					c.setPassword(rs.getString("password"));
+					c.setPrenom(rs.getString("prenom"));
+					c.setNom(rs.getString("nom"));
+					list.add(c);
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		return list;
 	}
 
 	@Override
