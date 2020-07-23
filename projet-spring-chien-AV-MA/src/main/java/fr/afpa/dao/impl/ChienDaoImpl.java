@@ -19,11 +19,11 @@ public class ChienDaoImpl implements IChienDao {
 	Connection connection;
 
 	@Autowired
+	@Qualifier("connexionMysql")
+	IDatabaseConnection databaseConnection;
 
-	public ChienDaoImpl(@Qualifier("connexionMysql") IDatabaseConnection databaseConnection) {
-
+	public ChienDaoImpl() {
 		this.connection = databaseConnection.getConnection();
-
 	}
 
 	@Override

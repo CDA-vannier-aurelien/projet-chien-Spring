@@ -1,6 +1,7 @@
 package fr.afpa.controleur;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,57 +17,62 @@ import fr.afpa.service.IClientService;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet (urlPatterns={"/accueil" , "/"})
+@WebServlet(urlPatterns = { "/accueil" })
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	IClientService clientService;
-    public TestServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/jsp/accueil.jsp").forward(request, response);
+	public TestServlet() {
+		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Récup infos + création session + assosciation 
-		Client c= null;
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Récup infos + création session + assosciation
+		Client c = null;
 		String message = "";
-		
+
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		
-		//Test si présent en bdd
+
+		// Test si présent en bdd
 		try {
-		//On récupère la personne avec login
-		c = clientService.selectByLogin(login);
+			// On récupère la personne avec login
+			c = clientService.selectByLogin(login);
 		} catch (Exception e) {
-		 message = "Login et/ou password non valide";
-		 request.setAttribute("message", message);
-		 this.getServletContext().getRequestDispatcher("/jsp/accueil.jsp").forward(request, response);
+			message = "Login et/ou password non valide";
+			request.setAttribute("message", message);
+			this.getServletContext().getRequestDispatcher("/jsp/accueil.jsp").forward(request, response);
 		}
-		
+
 		if (c.getPassword().equals(password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("client", c);
 			message = "Connexion ok";
-			 request.setAttribute("message", message);
+			request.setAttribute("message", message);
 			this.getServletContext().getRequestDispatcher("/jsp/clientAjoute.jsp").forward(request, response);
-		}else {
+		} else {
 			message = "Login et/ou password non valide (wouaf)";
 			request.setAttribute("message", message);
 			this.getServletContext().getRequestDispatcher("/jsp/accueil.jsp").forward(request, response);
 
 		}
-		//Récup du client avec id
-		
-		//Création session
-		
-		//Si login et password ok Création session --> renvoie sur liste chiens
-		
-		//Sinon --> renvoi vers AjouterClientServlet
-		
+		// Récup du client avec id
+
+		// Création session
+
+		// Si login et password ok Création session --> renvoie sur liste chiens
+
+		// Sinon --> renvoi vers AjouterClientServlet
+
 	}
 
 }
