@@ -29,6 +29,7 @@
 						<th>Race</th>
 						<th>Couleur</th>
 						<th>Age</th>
+						<th>IDChien</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,8 +47,41 @@
 						<td><%=c.getRace()%></td>
 						<td><%=c.getCouleur()%></td>
 						<td><%=c.getAge()%></td>
+						<td><%=c.getIdChien() %></td>
 						<td><a href="update?id=<%=c.getIdChien()%>" class="btn btn-warning" role="button">Update</a></td>
-						<td><a href="deleteServlet?id=<%=c.getIdChien()%>" class="btn btn-danger" role="button">Delete</a></td>
+						<td class="celluleBouton">
+				 <form action="delete.html" method="post">
+				 <input type="hidden" name="idChien" value="<%=c.getIdChien()%>"></input>
+				 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%=c.getIdChien()  %>">
+				 
+  Supprimer
+</button>
+<!-- 				<button class="btn btn-outline-danger">Supprimer</button>	 -->
+				</form>
+				<!-- Modal -->
+<div class="modal fade" id="deleteModal<%=c.getIdChien() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel<%=c.getIdChien() %>" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel<%=c.getIdChien()  %>">Confirmation de suppression</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Souhaitez vous vraiment supprimer ce chien?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <form action="delete.html"  method="post">
+        <input type="hidden" name="idChien" value="<%=c.getIdChien() %>"></input>
+        <button type="submit" class="btn btn-primary">Continuer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+				</td>
 					</tr>
 					<%
 						cpt++;

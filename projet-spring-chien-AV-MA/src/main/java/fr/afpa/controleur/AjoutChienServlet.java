@@ -59,9 +59,7 @@ public class AjoutChienServlet extends AbstractServletController {
 			Chien chien = new Chien(vNom, vRace, vCouleur, vAge);
 			System.out.println(chien);
 			List<Chien> listeChien = chienService.getListChienByClient(login);
-			for (Chien chien2 : listeChien) {
-				System.out.println("chien2");
-			}
+
 			for (Chien vChien : listeChien) {
 				if (vChien.getNom().equals(chien.getNom()) && vChien.getRace().equals(chien.getRace())
 						&& vChien.getAge() == (chien.getAge())) {
@@ -74,7 +72,12 @@ public class AjoutChienServlet extends AbstractServletController {
 						response);
 			} else {
 				chienService.ajouterChien(chien, login);
+				chien = chienService.selectByName(vNom);
+				System.out.println(chien);
 				listeChien.add(chien);
+				for (Chien chien2 : listeChien) {
+					System.out.println(chien2);
+				}
 			}
 			request.setAttribute("listeDeChiens", listeChien);
 		}

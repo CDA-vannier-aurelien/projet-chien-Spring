@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -31,7 +29,8 @@ public class ChienDaoImpl implements IChienDao {
 	@Override
 	public void deleteByIdBdd(int id) {
 		try {
-			PreparedStatement ps = connection.prepareStatement("delete from chien where id_chien=" + id + ";");
+			PreparedStatement ps = connection.prepareStatement("delete from chien where id_chien=?;");
+			ps.setInt(1, id);
 			ps.executeQuery();
 
 		} catch (SQLException e) {
@@ -60,11 +59,12 @@ public class ChienDaoImpl implements IChienDao {
 	}
 
 	@Override
-	public Chien ajoutChienBdd(Chien pChien, String pLogin) {
+	public void ajoutChienBdd(Chien pChien, String pLogin) {
 		System.out.println(pLogin);
 		try {
-			PreparedStatement ps = connection
-					.prepareStatement("insert into chien (nom, race, couleur, age, login) values (?,?,?,?,?); ", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = connection.prepareStatement(
+					"insert into chien (nom, race, couleur, age, login) values (?,?,?,?,?); ",
+					Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, pChien.getNom());
 			ps.setString(2, pChien.getRace());
@@ -79,7 +79,6 @@ public class ChienDaoImpl implements IChienDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return pChien;
 
 	}
 
@@ -104,11 +103,12 @@ public class ChienDaoImpl implements IChienDao {
 	public List<Chien> getListBdd() {
 		List<Chien> listeChiens = new ArrayList<>();
 		try {
-			PreparedStatement ps = connection.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c ;");
+			PreparedStatement ps = connection
+					.prepareStatement("select c.id_chien, c.nom, c.race, c.couleur, c.age from chien c ;");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Chien chien = new Chien();
-
+				chien.setIdChien(rs.getInt("id_chien"));
 				chien.setNom(rs.getString("nom"));
 				chien.setRace(rs.getString("race"));
 				chien.setCouleur(rs.getString("couleur"));
@@ -126,14 +126,14 @@ public class ChienDaoImpl implements IChienDao {
 	public List<Chien> getListChienByClient(String login) {
 		List<Chien> listeChiens = new ArrayList<>();
 		try {
-			PreparedStatement ps = connection
-					.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c WHERE c.login =? ");
+			PreparedStatement ps = connection.prepareStatement(
+					"select c.id_chien, c.nom, c.race, c.couleur, c.age from chien c WHERE c.login =? ");
 
 			ps.setString(1, login);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Chien chien = new Chien();
-
+				chien.setIdChien(rs.getInt("id_chien"));
 				chien.setNom(rs.getString("nom"));
 				chien.setRace(rs.getString("race"));
 				chien.setCouleur(rs.getString("couleur"));
@@ -145,6 +145,27 @@ public class ChienDaoImpl implements IChienDao {
 			e.printStackTrace();
 		}
 		return listeChiens;
+	}
+
+	@Override
+	public Chien selectByNameBdd(String nom) {
+		Chien c = new Chien();
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from chien c where c.nom=?");
+			ps.setString(1, nom);
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				c.setIdChien(rs.getInt("id_chien"));
+				c.setNom(rs.getString("nom"));
+				c.setRace(rs.getString("race"));
+				c.setCouleur(rs.getString("couleur"));
+				c.setAge(rs.getByte("age"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return c;
 	}
 
 }
