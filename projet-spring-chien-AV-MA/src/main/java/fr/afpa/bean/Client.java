@@ -1,7 +1,5 @@
 package fr.afpa.bean;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,18 +13,5 @@ public class Client {
 	private String password;
 	private String prenom;
 	private String nom;
-	private List<Chien> listeChiens;
-	
 
-	public Client(String login, String password, String prenom, String nom) {
-		super();
-		this.login = login;
-		this.password = password;
-		this.prenom = prenom;
-		this.nom = nom;
-	}
-
-	
-	
-	
 }

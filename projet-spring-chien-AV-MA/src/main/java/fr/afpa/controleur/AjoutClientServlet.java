@@ -28,14 +28,16 @@ public class AjoutClientServlet extends AbstractServletController {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		String message = "";
 
 		String login = request.getParameter("login");
@@ -46,10 +48,9 @@ public class AjoutClientServlet extends AbstractServletController {
 
 		try {
 			clientService.ajouterClient(c);
-			System.out.println("client ajouté en bdd");
 			HttpSession session = request.getSession();
 			session.setAttribute("client", c);
-			
+
 		} catch (Exception e) {
 			message = "Erreur lors de l'ajout";
 			request.setAttribute("message", message);

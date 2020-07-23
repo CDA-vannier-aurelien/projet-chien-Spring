@@ -12,7 +12,7 @@ public interface IChienService {
 
 	public Chien selectById(int id);
 
-	public void ajouterChien(Chien c);
+	public void ajouterChien(Chien c, String pLogin);
 
 	public void updateChien(Chien c);
 

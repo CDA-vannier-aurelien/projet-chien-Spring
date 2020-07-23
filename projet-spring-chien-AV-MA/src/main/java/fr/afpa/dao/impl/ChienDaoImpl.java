@@ -57,18 +57,17 @@ public class ChienDaoImpl implements IChienDao {
 	}
 
 	@Override
-	public Chien ajoutChienBdd(Chien pChien) {
-		List<Chien> listeChiens = getListBdd();
-		Chien lastChien = listeChiens.get(listeChiens.size() - 1);
-
+	public Chien ajoutChienBdd(Chien pChien, String pLogin) {
+		System.out.println(pLogin);
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("insert into chien (nom, race, couleur, age) values (?,?,?,?); ");
+					.prepareStatement("insert into chien (nom, race, couleur, age, login) values (?,?,?,?,?); ");
 
 			ps.setString(1, pChien.getNom());
 			ps.setString(2, pChien.getRace());
 			ps.setString(3, pChien.getCouleur());
 			ps.setByte(4, pChien.getAge());
+			ps.setString(5, pLogin);
 			ps.executeUpdate();
 			ResultSet resultat = ps.getGeneratedKeys();
 			if (resultat.next()) {
@@ -102,8 +101,7 @@ public class ChienDaoImpl implements IChienDao {
 	public List<Chien> getListBdd() {
 		List<Chien> listeChiens = new ArrayList<>();
 		try {
-			PreparedStatement ps = connection
-					.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c order by c.age desc;");
+			PreparedStatement ps = connection.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c ;");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Chien chien = new Chien();
@@ -126,7 +124,9 @@ public class ChienDaoImpl implements IChienDao {
 		List<Chien> listeChiens = new ArrayList<>();
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c WHERE c.login = " + login);
+					.prepareStatement("select c.nom, c.race, c.couleur, c.age from chien c WHERE c.login =? ");
+
+			ps.setString(1, login);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Chien chien = new Chien();
