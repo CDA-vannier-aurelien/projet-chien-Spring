@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.afpa.bean.Client;
 import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IClientService;
+import util.BCrypt;
 
 /**
  * Servlet implementation class AjoutClient
@@ -45,6 +46,9 @@ public class AjoutClientServlet extends AbstractServletController {
 		String prenom = request.getParameter("prenom");
 		String nom = request.getParameter("nom");
 
+		//Hashage du password
+		String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
+		
 		// Check si login est déjà pris, error first
 		if (clientService.checkSiExisteBDD(login)) {
 			error = "Login déjà utilisé !";
@@ -52,7 +56,7 @@ public class AjoutClientServlet extends AbstractServletController {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
 		} else {
 			// Ok pour construction
-			c = new Client(login, password, prenom, nom);
+			c = new Client(login, passwordHash, prenom, nom);
 
 			// On ajoute en bdd et on construit la session
 			try {

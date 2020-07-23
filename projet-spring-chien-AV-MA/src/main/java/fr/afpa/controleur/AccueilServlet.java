@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.afpa.bean.Client;
 import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IClientService;
+import util.BCrypt;
 
 /**
  * Servlet implementation class TestServlet
@@ -38,6 +39,7 @@ public class AccueilServlet extends AbstractServletController {
 
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
+		
 
 		// Check si Login est présent en bdd ,error first 
 		if (!clientService.checkSiExisteBDD(login)) {
@@ -49,7 +51,7 @@ public class AccueilServlet extends AbstractServletController {
 		}
 
 		// Login ok, Check si le password correspond au login ,error first
-		if (!password.equals(c.getPassword())) {
+		if (!BCrypt.checkpw(password, c.getPassword())) {
 			error = "Login/password invalide";
 			request.setAttribute("error", error);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);

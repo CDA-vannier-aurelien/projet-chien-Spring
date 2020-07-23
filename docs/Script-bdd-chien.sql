@@ -22,7 +22,7 @@ grant all privileges on bdd_chien.* to 'chien_user'@'%';
 
   CREATE TABLE Client(
           login    Varchar (20) NOT NULL ,
-          password Varchar (20) NOT NULL ,
+          password Varchar (100) NOT NULL ,
           prenom   Varchar (50) NOT NULL ,
           nom      Varchar (50) NOT NULL
   	,CONSTRAINT Client_PK PRIMARY KEY (login)
