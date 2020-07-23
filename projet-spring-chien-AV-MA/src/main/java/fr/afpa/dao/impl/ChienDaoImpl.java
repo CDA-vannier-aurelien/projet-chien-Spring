@@ -43,13 +43,14 @@ public class ChienDaoImpl implements IChienDao {
 		Chien c = new Chien();
 		try {
 			PreparedStatement ps = connection.prepareStatement(
-					"select c.id_chien, c.nom, c.race, c.couleur, c.age from chien c where p.id_chien=" + id);
+					"select * from chien where id_chien= ?");
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				c.setIdChien(rs.getInt("id_chien"));
 				c.setNom(rs.getString("nom"));
-				c.setRace(rs.getString("prenom"));
-				c.setCouleur("couleur");
+				c.setRace(rs.getString("race"));
+				c.setCouleur(rs.getString("couleur"));
 				c.setAge(rs.getByte("age"));
 			}
 		} catch (SQLException e) {
