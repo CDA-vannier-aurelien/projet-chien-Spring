@@ -15,7 +15,7 @@
 		<div class="container">
 		<h1>Connexion</h1>
 		<h2 class="text-danger">${message}</h2>
-			<form action="listeChiens" method="post">
+			<form action="accueil" method="post">
 
 				<div class="form-group">
 					<input id="login" type="text" name="login" class="form-control"
