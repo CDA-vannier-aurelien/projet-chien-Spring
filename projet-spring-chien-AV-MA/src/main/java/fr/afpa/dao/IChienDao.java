@@ -13,7 +13,7 @@ public interface IChienDao {
 
 	public Chien selectByIdBdd(int id);
 
-	public Chien ajoutChienBdd(Chien c);
+	public Chien ajoutChienBdd(Chien c, String pLogin);
 
 	public void updateChienBdd(Chien c);
 

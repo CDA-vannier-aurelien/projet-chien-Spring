@@ -32,21 +32,21 @@ public class ChienServiceImpl implements IChienService {
 	}
 
 	@Override
-	public void ajouterChien(Chien c) {
-		chienDao.ajoutChienBdd(c);
+	public void ajouterChien(Chien c, String pLogin) {
+		chienDao.ajoutChienBdd(c, pLogin);
 
 	}
 
 	@Override
 	public void updateChien(Chien c) {
-		// TODO Auto-generated method stub
+		chienDao.updateChienBdd(c);
 
 	}
 
 	@Override
 	public List<Chien> getListChienByClient(String pLogin) {
-		chienDao.getListChienByClient(pLogin);
-		return null;
+		return chienDao.getListChienByClient(pLogin);
+
 	}
 
 }

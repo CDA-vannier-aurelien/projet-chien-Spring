@@ -16,7 +16,7 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Liste de tous vos chiens</h1>
-			<h3 class="text-danger">${message}</h3>
+			<h3 class="text-danger">${error}</h3>
 			<table class="table">
 				<thead>
 					<tr>
@@ -62,13 +62,13 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Ajout User</h5>
+							<h5 class="modal-title" id="exampleModalLabel">Ajout chien</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<form id="modalForm" action="ajoutChien" method="post">
+						<form id="modalForm" action="ajoutChien.do" method="post">
 							<div class="modal-body">
 
 								<div class="form-group">
@@ -85,7 +85,7 @@
 								</div>
 
 								<div class="form-group">
-									<input id="age" type="text" name="age" class="form-control"
+									<input id="age" type="number" name="age" class="form-control"
 										placeholder="Age">
 								</div>
 

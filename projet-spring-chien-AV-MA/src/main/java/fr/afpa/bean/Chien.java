@@ -21,6 +21,7 @@ public class Chien {
 		this.race = pRace;
 		this.couleur = pCouleur;
 		this.age = pAge;
+
 	}
 
 }
