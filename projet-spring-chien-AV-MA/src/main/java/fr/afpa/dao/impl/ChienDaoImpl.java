@@ -42,8 +42,7 @@ public class ChienDaoImpl implements IChienDao {
 	public Chien selectByIdBdd(int id) {
 		Chien c = new Chien();
 		try {
-			PreparedStatement ps = connection.prepareStatement(
-					"select * from chien where id_chien= ?");
+			PreparedStatement ps = connection.prepareStatement("select * from chien where id_chien= ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -52,6 +51,7 @@ public class ChienDaoImpl implements IChienDao {
 				c.setRace(rs.getString("race"));
 				c.setCouleur(rs.getString("couleur"));
 				c.setAge(rs.getByte("age"));
+				c.setPuce(rs.getLong("puce"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,17 +61,17 @@ public class ChienDaoImpl implements IChienDao {
 
 	@Override
 	public void ajoutChienBdd(Chien pChien, String pLogin) {
-		System.out.println(pLogin);
 		try {
 			PreparedStatement ps = connection.prepareStatement(
-					"insert into chien (nom, race, couleur, age, login) values (?,?,?,?,?); ",
+					"insert into chien (nom, race, couleur, age, puce, login) values (?,?,?,?,?,?); ",
 					Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, pChien.getNom());
 			ps.setString(2, pChien.getRace());
 			ps.setString(3, pChien.getCouleur());
 			ps.setByte(4, pChien.getAge());
-			ps.setString(5, pLogin);
+			ps.setLong(5, pChien.getPuce());
+			ps.setString(6, pLogin);
 			ps.executeUpdate();
 			ResultSet resultat = ps.getGeneratedKeys();
 			if (resultat.next()) {
@@ -87,11 +87,13 @@ public class ChienDaoImpl implements IChienDao {
 	public void updateChienBdd(Chien pChien) {
 		try {
 			PreparedStatement ps = connection.prepareStatement(
-					"UPDATE chien \r\n" + "SET nom= ? , race =?, couleur =?, age =?\r\n" + "WHERE id_chien=?");
+					"UPDATE chien  SET nom= ? , race =?, couleur =?, age =?, puce = ?\r\n" + "WHERE id_chien=?");
 			ps.setString(1, pChien.getNom());
 			ps.setString(2, pChien.getRace());
 			ps.setString(3, pChien.getCouleur());
 			ps.setByte(4, pChien.getAge());
+			ps.setLong(5, pChien.getPuce());
+			ps.setInt(6, pChien.getIdChien());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,7 +107,7 @@ public class ChienDaoImpl implements IChienDao {
 		List<Chien> listeChiens = new ArrayList<>();
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select c.id_chien, c.nom, c.race, c.couleur, c.age from chien c ;");
+					.prepareStatement("select c.id_chien, c.nom, c.race, c.couleur, c.age, c.puce from chien c ;");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Chien chien = new Chien();
@@ -113,6 +115,7 @@ public class ChienDaoImpl implements IChienDao {
 				chien.setNom(rs.getString("nom"));
 				chien.setRace(rs.getString("race"));
 				chien.setCouleur(rs.getString("couleur"));
+				chien.setPuce(rs.getLong("puce"));
 				chien.setAge(rs.getByte("age"));
 				listeChiens.add(chien);
 			}
@@ -128,7 +131,7 @@ public class ChienDaoImpl implements IChienDao {
 		List<Chien> listeChiens = new ArrayList<>();
 		try {
 			PreparedStatement ps = connection.prepareStatement(
-					"select c.id_chien, c.nom, c.race, c.couleur, c.age from chien c WHERE c.login =? ");
+					"select c.id_chien, c.nom, c.race, c.couleur, c.age, c.puce from chien c WHERE c.login =? ");
 
 			ps.setString(1, login);
 			ResultSet rs = ps.executeQuery();
@@ -138,6 +141,7 @@ public class ChienDaoImpl implements IChienDao {
 				chien.setNom(rs.getString("nom"));
 				chien.setRace(rs.getString("race"));
 				chien.setCouleur(rs.getString("couleur"));
+				chien.setPuce(rs.getLong("puce"));
 				chien.setAge(rs.getByte("age"));
 				listeChiens.add(chien);
 			}
@@ -162,6 +166,7 @@ public class ChienDaoImpl implements IChienDao {
 				c.setRace(rs.getString("race"));
 				c.setCouleur(rs.getString("couleur"));
 				c.setAge(rs.getByte("age"));
+				c.setPuce(rs.getLong("puce"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
