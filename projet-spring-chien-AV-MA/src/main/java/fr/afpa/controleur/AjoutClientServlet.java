@@ -16,7 +16,8 @@ import fr.afpa.service.IClientService;
 import util.BCrypt;
 
 /**
- * Servlet implementation class AjoutClient
+ * @author Mathieu
+ * @Version 1.0 Servlet implementation class AjoutClient
  */
 @WebServlet("/ajoutClient")
 public class AjoutClientServlet extends AbstractServletController {
@@ -46,9 +47,9 @@ public class AjoutClientServlet extends AbstractServletController {
 		String prenom = request.getParameter("prenom");
 		String nom = request.getParameter("nom");
 
-		//Hashage du password
+		// Hashage du password
 		String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
-		
+
 		// Check si login est déjà pris, error first
 		if (clientService.checkSiExisteBDD(login)) {
 			error = "Login déjà utilisé !";

@@ -8,8 +8,18 @@ public interface IChienService {
 
 	public List<Chien> getList();
 
+	/**
+	 * descriptif
+	 * 
+	 * @param id identifiant du chien à supprimer
+	 */
 	public void deleteById(int id);
 
+	/**
+	 * 
+	 * @param id
+	 * @return retourne le chien que nous souhaiton manipuler
+	 */
 	public Chien selectById(int id);
 
 	public Chien selectByName(String nom);

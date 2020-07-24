@@ -19,6 +19,7 @@ import fr.afpa.service.IChienService;
 
 @WebServlet("/update.html")
 public class UpdateServlet extends AbstractServletController {
+
 	@Autowired
 	IChienService chienService;
 	private static final long serialVersionUID = 1L;

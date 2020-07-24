@@ -16,7 +16,11 @@ import fr.afpa.service.IClientService;
 import util.BCrypt;
 
 /**
- * Servlet implementation class TestServlet
+ * La servlet accueil est appelée au lancement. Elle permet de s'inscrire ou de
+ * se connecter à son compte.
+ * 
+ * @author Mathieu
+ * @version 1.0 Servlet implementation class TestServlet
  */
 @WebServlet(urlPatterns = { "/accueil" })
 public class AccueilServlet extends AbstractServletController {
@@ -24,12 +28,19 @@ public class AccueilServlet extends AbstractServletController {
 	@Autowired
 	IClientService clientService;
 
+	/**
+	 * Permet l'affichage de la jsp d'accueil et ainsi de s'inscrire ou se connecter
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 	}
 
+	/**
+	 * cette méthode récupère les informations de la jsp accueil et permet soit de
+	 * se connecter soit de s'inscrire et donc créer un nouveau client.
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -39,9 +50,8 @@ public class AccueilServlet extends AbstractServletController {
 
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		
 
-		// Check si Login est présent en bdd ,error first 
+		// Check si Login est présent en bdd ,error first
 		if (!clientService.checkSiExisteBDD(login)) {
 			error = "Login/password invalide";
 			request.setAttribute("error", error);
