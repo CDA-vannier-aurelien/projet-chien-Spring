@@ -36,33 +36,31 @@ public class AjoutChienServlet extends AbstractServletController {
 
 		HttpSession session = request.getSession();
 		Client c = (Client) session.getAttribute("client");
-		System.out.println(c + "dans le doPost");
 		String login = c.getLogin();
-
-//		if(request.getParameter("nom").matches("\\[a-zA-Z]+"))
-
-		// ajout session client
 
 		String vNom = request.getParameter("nom").toLowerCase();
 		String vRace = request.getParameter("race").toLowerCase();
 		String vCouleur = request.getParameter("couleur").toLowerCase();
 		String strAge = request.getParameter("age");
-		System.out.println(vNom);
-		boolean parsable = parseTest(strAge);
+		String strPuce = request.getParameter("puce");
+
+		boolean parsableByte = chienService.parseByteTest(strAge);
+		boolean parsableLong = chienService.parseLongTest(strPuce);
 		if (!Pattern.matches("[\\D]+", vNom) || !Pattern.matches("[\\D]+", vRace)
-				|| !Pattern.matches("[\\D]+", vCouleur) || parsable == false) {
+				|| !Pattern.matches("[\\D]+", vCouleur) || parsableByte == false || parsableLong == false) {
 			request.setAttribute("error", "Erreur de saisie");
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/liste-chiens.jsp").forward(request, response);
 		} else {
 			boolean existe = false;
 			byte vAge = Byte.parseByte(strAge);
-			Chien chien = new Chien(vNom, vRace, vCouleur, vAge);
-			System.out.println(chien);
+			long vPuce = Long.parseLong(strPuce);
+			Chien chien = new Chien(vNom, vRace, vCouleur, vAge, vPuce);
+
 			List<Chien> listeChien = chienService.getListChienByClient(login);
 
 			for (Chien vChien : listeChien) {
 				if (vChien.getNom().equals(chien.getNom()) && vChien.getRace().equals(chien.getRace())
-						&& vChien.getAge() == (chien.getAge())) {
+						&& vChien.getAge() == (chien.getAge()) || vChien.getPuce() == (chien.getPuce())) {
 					existe = true;
 				}
 			}
@@ -73,11 +71,9 @@ public class AjoutChienServlet extends AbstractServletController {
 			} else {
 				chienService.ajouterChien(chien, login);
 				chien = chienService.selectByName(vNom);
-				System.out.println(chien);
+
 				listeChien.add(chien);
-				for (Chien chien2 : listeChien) {
-					System.out.println(chien2);
-				}
+
 			}
 			request.setAttribute("listeDeChiens", listeChien);
 		}
@@ -85,18 +81,4 @@ public class AjoutChienServlet extends AbstractServletController {
 
 	}
 
-	private boolean parseTest(String strAge) {
-		boolean res = false;
-		try {
-			byte age = Byte.parseByte(strAge);
-			if (age > 0 && age < 30) {
-				res = true;
-			}else {
-			res = false;
-			}
-		} catch (Exception e) {
-			res = false;
-		}
-		return res;
-	}
 }

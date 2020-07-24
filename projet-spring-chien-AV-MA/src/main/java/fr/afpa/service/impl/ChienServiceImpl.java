@@ -55,4 +55,36 @@ public class ChienServiceImpl implements IChienService {
 
 	}
 
+	@Override
+	public boolean parseByteTest(String strAge) {
+		boolean res = false;
+		try {
+			byte age = Byte.parseByte(strAge);
+			if (age > 0 && age < 30) {
+				res = true;
+			} else {
+				res = false;
+			}
+		} catch (Exception e) {
+			res = false;
+		}
+		return res;
+	}
+
+	@Override
+	public boolean parseLongTest(String str) {
+		boolean res = false;
+		try {
+			long num = Long.parseLong(str);
+			if (num > 0) {
+				res = true;
+			} else {
+				res = false;
+			}
+		} catch (Exception e) {
+			res = false;
+		}
+		return res;
+	}
+
 }

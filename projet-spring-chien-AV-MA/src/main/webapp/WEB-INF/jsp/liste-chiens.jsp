@@ -29,6 +29,7 @@
 						<th>Race</th>
 						<th>Couleur</th>
 						<th>Age</th>
+						<th>N° Puce</th>
 						<th>IDChien</th>
 					</tr>
 				</thead>
@@ -47,8 +48,15 @@
 						<td><%=c.getRace()%></td>
 						<td><%=c.getCouleur()%></td>
 						<td><%=c.getAge()%></td>
+						<td><%=c.getPuce()%></td>
 						<td><%=c.getIdChien() %></td>
-						<td><a href="update?id=<%=c.getIdChien()%>" class="btn btn-warning" role="button">Update</a></td>
+						</td>
+				<td class="celluleBouton">
+				<form action="update.html" method="get">
+				 <input type="hidden" name="idChien" value="<%=c.getIdChien() %>"></input>
+				<button class="btn btn-warning">Update</button>	
+				</form>
+				</td>
 						<td class="celluleBouton">
 				 <form action="delete.html" method="post">
 				 <input type="hidden" name="idChien" value="<%=c.getIdChien()%>"></input>
@@ -125,6 +133,10 @@
 								<div class="form-group">
 									<input id="age" type="number" name="age" class="form-control"
 										placeholder="Age" min="1" max="30" required>
+								</div>
+								<div class="form-group">
+									<input id="puce" type="number" name="puce" class="form-control"
+										placeholder="N° Puce" min="1"  required>
 								</div>
 
 								<!-- 								<div class="form-group"> -->

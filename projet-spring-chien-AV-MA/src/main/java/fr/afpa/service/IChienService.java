@@ -20,4 +20,8 @@ public interface IChienService {
 
 	public List<Chien> getListChienByClient(String login);
 
+	public boolean parseByteTest(String strAge);
+
+	public boolean parseLongTest(String str);
+
 }
