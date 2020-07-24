@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Permet de réaliser la connection à la base de donnée MySql
+ * 
+ * @author Aurélien
+ * @version 1.0
+ */
 @Component("connexionMysql")
 public class DatabaseConnectionMysql implements IDatabaseConnection {
 
@@ -15,6 +21,9 @@ public class DatabaseConnectionMysql implements IDatabaseConnection {
 
 	private Connection connexion = null;
 
+	/**
+	 * Démarre la connection à la base de donnée.
+	 */
 	@Override
 	public Connection getConnection() {
 		if (connexion == null) {
@@ -29,6 +38,9 @@ public class DatabaseConnectionMysql implements IDatabaseConnection {
 		return connexion;
 	}
 
+	/**
+	 * Arrêt la connection à la base de donnée.
+	 */
 	@Override
 	public void stop() {
 		if (connexion != null) {

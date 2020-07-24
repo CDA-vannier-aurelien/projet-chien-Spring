@@ -15,19 +15,37 @@ import fr.afpa.bean.Client;
 import fr.afpa.dao.IClientDao;
 import fr.afpa.dao.config.IDatabaseConnection;
 
+/**
+ * Implémentation des méthodes de communication avec la BDD concernant le
+ * client.
+ * 
+ * @author Mathieu
+ * @version 1.0
+ */
 @Repository
 public class ClientDaoImpl implements IClientDao {
 
+	/*
+	 * Récupération de la connection
+	 */
 	Connection connection;
 
 	@Autowired
 
+	/**
+	 * Détermine quelle base de donnée appeler.
+	 * 
+	 * @param databaseConnection Base de donnée avec laquelle on travaille.
+	 */
 	public ClientDaoImpl(@Qualifier("connexionMysql") IDatabaseConnection databaseConnection) {
 
 		this.connection = databaseConnection.getConnection();
 
 	}
 
+	/**
+	 * récupère la liste de tous les clients.
+	 */
 	@Override
 	public List<Client> getListBdd() {
 		List<Client> list = new ArrayList<Client>();
@@ -48,6 +66,9 @@ public class ClientDaoImpl implements IClientDao {
 		return list;
 	}
 
+	/**
+	 * Ajoute un nouveau client dans la BDD
+	 */
 	@Override
 	public Client ajoutClientBdd(Client pClient) {
 
@@ -67,8 +88,9 @@ public class ClientDaoImpl implements IClientDao {
 
 	}
 
-//	
-
+	/**
+	 * Sélectionne le client par son login qui correspond à son Id.
+	 */
 	@Override
 	public Client selectByLogin(String pLogin) {
 		Client c = null;
@@ -92,6 +114,9 @@ public class ClientDaoImpl implements IClientDao {
 		return c;
 	}
 
+	/**
+	 * Supprime le client sélectionné de la base de donnée.
+	 */
 	@Override
 	public void deleteClientBdd(Client pClient) {
 		try {

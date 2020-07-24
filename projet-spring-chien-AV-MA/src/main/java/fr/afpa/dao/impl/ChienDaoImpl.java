@@ -16,16 +16,34 @@ import fr.afpa.bean.Chien;
 import fr.afpa.dao.IChienDao;
 import fr.afpa.dao.config.IDatabaseConnection;
 
+/**
+ * Implémentation de l'inteface dDao afin d'appeler les méthodes de
+ * communication avec la BDD.
+ * 
+ * @author Aurélien
+ * @version 1.0
+ *
+ */
 @Repository
 public class ChienDaoImpl implements IChienDao {
 
 	Connection connection;
+
+	/**
+	 * Connection à la base de donnée anotée par le Qualifier
+	 * 
+	 * @param databaseConnection base de donnée sélectionnée.
+	 */
 
 	@Autowired
 	public ChienDaoImpl(@Qualifier("connexionMysql") IDatabaseConnection databaseConnection) {
 		this.connection = databaseConnection.getConnection();
 	}
 
+	/**
+	 * Suppresion du chien sélectionné par son id.
+	 * 
+	 */
 	@Override
 	public void deleteByIdBdd(int id) {
 		try {
@@ -38,6 +56,10 @@ public class ChienDaoImpl implements IChienDao {
 		}
 	}
 
+	/**
+	 * Sélection d'un chien par son id.
+	 *
+	 */
 	@Override
 	public Chien selectByIdBdd(int id) {
 		Chien c = new Chien();
@@ -59,6 +81,10 @@ public class ChienDaoImpl implements IChienDao {
 		return c;
 	}
 
+	/**
+	 * Ajoute un chien à la base de donnée.
+	 * 
+	 */
 	@Override
 	public void ajoutChienBdd(Chien pChien, String pLogin) {
 		try {
@@ -83,6 +109,9 @@ public class ChienDaoImpl implements IChienDao {
 
 	}
 
+	/**
+	 * Mise à jour des informations en BDD du chien sélectionné
+	 */
 	@Override
 	public void updateChienBdd(Chien pChien) {
 		try {
@@ -102,6 +131,11 @@ public class ChienDaoImpl implements IChienDao {
 
 	}
 
+	/**
+	 * 
+	 * Récupère la liste de tous les chiens présents dans la base de donnée.
+	 * 
+	 */
 	@Override
 	public List<Chien> getListBdd() {
 		List<Chien> listeChiens = new ArrayList<>();
@@ -126,6 +160,9 @@ public class ChienDaoImpl implements IChienDao {
 		return listeChiens;
 	}
 
+	/**
+	 * Récupère la liste de tous les chiens du client sélectionné par son login(id)
+	 */
 	@Override
 	public List<Chien> getListChienByClient(String login) {
 		List<Chien> listeChiens = new ArrayList<>();
@@ -152,6 +189,9 @@ public class ChienDaoImpl implements IChienDao {
 		return listeChiens;
 	}
 
+	/**
+	 * Sélection du chien par son nom
+	 */
 	@Override
 	public Chien selectByNameBdd(String nom) {
 		Chien c = new Chien();

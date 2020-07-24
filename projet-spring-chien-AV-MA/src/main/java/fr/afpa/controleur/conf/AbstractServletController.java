@@ -10,6 +10,10 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public abstract class AbstractServletController extends HttpServlet {
 	/**
+	 * Factorisationde la classe HttpServlet et du WebApplicationContext
+	 * 
+	 * @author Aurélien
+	 * @version 1.0
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
