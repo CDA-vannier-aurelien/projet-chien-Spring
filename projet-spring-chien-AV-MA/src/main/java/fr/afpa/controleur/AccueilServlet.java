@@ -43,7 +43,7 @@ public class AccueilServlet extends AbstractServletController {
 
 		// Check si Login est présent en bdd ,error first 
 		if (!clientService.checkSiExisteBDD(login)) {
-			error = "Login inconnu";
+			error = "Login/password invalide";
 			request.setAttribute("error", error);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
 		} else {

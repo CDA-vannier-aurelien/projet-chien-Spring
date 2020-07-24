@@ -15,4 +15,6 @@ public interface IClientService {
 
 	public boolean checkSiExisteBDD(String pLogin);
 
+	public void deleteClient(Client clientTest);
+
 }
