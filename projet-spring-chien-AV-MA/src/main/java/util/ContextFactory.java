@@ -7,7 +7,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 /**
  * Permet le chargement du fichier de configuration de Spring
  * 
- * @author
+ * @author MOMO
  * 
  */
 public class ContextFactory {

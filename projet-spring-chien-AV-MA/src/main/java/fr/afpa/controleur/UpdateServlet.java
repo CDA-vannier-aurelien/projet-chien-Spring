@@ -17,6 +17,14 @@ import fr.afpa.bean.Client;
 import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IChienService;
 
+/**
+ * Servlet permettant de récupérer les informations du chien à modifier et le
+ * traitement de ces modifications.
+ * 
+ * @author Aurélien
+ * @version 1.0
+ *
+ */
 @WebServlet("/update.html")
 public class UpdateServlet extends AbstractServletController {
 
@@ -27,6 +35,9 @@ public class UpdateServlet extends AbstractServletController {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Récupération de l'IdChien provenant de la jsp liste-chien permettant de
+		// récupérer le chien en question.
 		String strId = request.getParameter("idChien");
 		int vId = Integer.parseInt(strId);
 		Chien c = chienService.selectById(vId);
@@ -35,13 +46,17 @@ public class UpdateServlet extends AbstractServletController {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/update.jsp").forward(request, response);
 	}
 
+	// Modifications des informations du chien sélectionné.
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// Récupération du client et de sa session.
 		HttpSession session = request.getSession();
 		Client c = (Client) session.getAttribute("client");
 		String login = c.getLogin();
 
+		// Récupération des nouvelles informations du chien via la jsp update.
 		String strIdChien = request.getParameter("idChien").toLowerCase();
 		int vIdChien = Integer.parseInt(strIdChien);
 		String vNom = request.getParameter("nom").toLowerCase();
@@ -50,8 +65,11 @@ public class UpdateServlet extends AbstractServletController {
 		String strAge = request.getParameter("age");
 		String strPuce = request.getParameter("puce");
 
+		// Vérification des nombres et de leur format.
 		boolean parsableByte = chienService.parseByteTest(strAge);
 		boolean parsableLong = chienService.parseLongTest(strPuce);
+
+		// Vérification de la bonne saisie des données entrées par le client.
 		if (!Pattern.matches("[\\D]+", vNom) || !Pattern.matches("[\\D]+", vRace)
 				|| !Pattern.matches("[\\D]+", vCouleur) || parsableByte == false || parsableLong == false) {
 			request.setAttribute("error", "Erreur de saisie");
@@ -61,6 +79,8 @@ public class UpdateServlet extends AbstractServletController {
 			byte vAge = Byte.parseByte(strAge);
 			long vPuce = Long.parseLong(strPuce);
 			Chien chien = new Chien(vIdChien, vNom, vRace, vCouleur, vAge, vPuce);
+
+			// Mise à jour des informations du chien en BDD puis retour sur liste-chien.jsp
 
 			chienService.updateChien(chien);
 

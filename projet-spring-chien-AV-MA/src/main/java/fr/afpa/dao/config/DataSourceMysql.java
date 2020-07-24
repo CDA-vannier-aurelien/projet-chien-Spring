@@ -7,6 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Récupère les informations pour la connection àa la base de donnée Mysql
+ * 
+ * @author Aurelien
+ * @version 1.0
+ */
 @Component
 @Data
 @NoArgsConstructor
