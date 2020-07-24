@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.afpa.bean.Client;
 import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IClientService;
+import util.BCrypt;
 
 /**
  * Servlet implementation class AjoutClient
@@ -37,28 +38,37 @@ public class AjoutClientServlet extends AbstractServletController {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String message = "";
+		Client c;
+		String error = "";
 
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		String prenom = request.getParameter("nom").toLowerCase();
-		String nom = request.getParameter("prenom").toLowerCase();
-		Client c = new Client(login, password, prenom, nom);
+		String prenom = request.getParameter("prenom");
+		String nom = request.getParameter("nom");
 
-		try {
-			clientService.ajouterClient(c);
-			HttpSession session = request.getSession();
-			session.setAttribute("client", c);
+		//Hashage du password
+		String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
+		
+		// Check si login est déjà pris, error first
+		if (clientService.checkSiExisteBDD(login)) {
+			error = "Login déjà utilisé !";
+			request.setAttribute("error", error);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+		} else {
+			// Ok pour construction
+			c = new Client(login, passwordHash, prenom, nom);
 
-		} catch (Exception e) {
-			message = "Erreur lors de l'ajout";
-			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
+			// On ajoute en bdd et on construit la session
+			try {
+				clientService.ajouterClient(c);
+				HttpSession session = request.getSession();
+				session.setAttribute("client", c);
+			} catch (Exception e) {
+				error = "Erreur lors de l'ajout";
+				request.setAttribute("message", error);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+			}
 		}
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/liste-chiens.jsp").forward(request, response);
-
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);
 	}
-
 }

@@ -89,7 +89,11 @@ public class AjoutChienServlet extends AbstractServletController {
 		boolean res = false;
 		try {
 			byte age = Byte.parseByte(strAge);
-			res = true;
+			if (age > 0 && age < 30) {
+				res = true;
+			}else {
+			res = false;
+			}
 		} catch (Exception e) {
 			res = false;
 		}

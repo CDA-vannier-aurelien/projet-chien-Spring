@@ -14,7 +14,7 @@
 	<div class="jumbotron">
 		<div class="container">
 		<h1>Connexion</h1>
-		<h2 class="text-danger">${message}</h2>
+		<h2 class="text-danger">${error}</h2>
 			<form action="accueil" method="post">
 
 				<div class="form-group">

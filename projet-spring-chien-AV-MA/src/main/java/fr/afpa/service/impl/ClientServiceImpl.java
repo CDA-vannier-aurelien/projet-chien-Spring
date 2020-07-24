@@ -21,45 +21,28 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	@Override
-	public void deleteById(int id) {
-		clientDao.deleteByIdBdd(id);
-	}
-
-	@Override
-	public Client selectById(int id) {
-		return clientDao.selectByIdBdd(id);
-	}
-
-	@Override
 	public void ajouterClient(Client c) {
 		clientDao.ajoutClientBdd(c);
 
 	}
 
 	@Override
-	public void updateClient(Client c) {
-		// TODO Auto-generated method stub
-	}
-
-	public void authentifier() {
-
-	}
-
-	public void modifierInformations() {
-
-	}
-
-	public void supprimerCompte() {
-
-	}
-
-	public void inscrire() {
-
+	public Client selectByLogin(String pLogin) {
+		return clientDao.selectByLogin(pLogin);
 	}
 
 	@Override
-	public Client selectByLogin(String pLogin) {
-		return clientDao.selectByLogin(pLogin);
+	public boolean checkSiExisteBDD(String pLogin) {
+		boolean existe = false;
+		// On récupère la liste des clients
+		List<Client> listeLoginClients = clientDao.getListBdd();
+		// On teste si le login est présent en bdd
+		for (Client client : listeLoginClients) {
+			if (pLogin.equals(client.getLogin())) {
+				existe = true;
+			}
+		}
+		return existe ? true : false;
 	}
 
 }

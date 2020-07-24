@@ -34,7 +34,7 @@
 				</thead>
 				<tbody>
 					<% 
-						List<Chien> listeChiens =(List<Chien>) request.getAttribute("listechiens");
+						List<Chien> listeChiens =(List<Chien>) request.getAttribute("listeDeChiens");
 					if(listeChiens != null){
 					int cpt = 1;
 					for (Chien c : listeChiens) {
@@ -111,20 +111,20 @@
 
 								<div class="form-group">
 									<input id="nom" type="text" name="nom" class="form-control"
-										placeholder="Nom du chien">
+										placeholder="Nom du chien" required>
 								</div>
 								<div class="form-group">
 									<input id="race" type="text" name="race" class="form-control"
-										placeholder="Race">
+										placeholder="Race" required>
 								</div>
 								<div class="form-group">
 									<input id="couleur" type="text" name="couleur"
-										class="form-control" placeholder="Couleur du pelage">
+										class="form-control" placeholder="Couleur du pelage" required>
 								</div>
 
 								<div class="form-group">
 									<input id="age" type="number" name="age" class="form-control"
-										placeholder="Age">
+										placeholder="Age" min="1" max="30" required>
 								</div>
 
 								<!-- 								<div class="form-group"> -->

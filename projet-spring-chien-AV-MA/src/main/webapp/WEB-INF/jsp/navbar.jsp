@@ -7,9 +7,6 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Bienvenue !</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href="#">${sessionScope.client.prenom}</a>
     </li>
     <li class="nav-item">

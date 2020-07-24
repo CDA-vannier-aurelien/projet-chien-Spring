@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import fr.afpa.bean.Client;
 import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IClientService;
+import util.BCrypt;
 
 /**
  * Servlet implementation class TestServlet
@@ -32,43 +33,32 @@ public class AccueilServlet extends AbstractServletController {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Récup infos + création session + assosciation
-		String message = "";
+		// Récup infos + création session + association
+		Client c = null;
+		String error = "";
 
 		String login = request.getParameter("login");
-		Client c = null;
 		String password = request.getParameter("password");
+		
 
-		// Test si présent en bdd
-		try {
-			// On récupère la personne avec login
+		// Check si Login est présent en bdd ,error first 
+		if (!clientService.checkSiExisteBDD(login)) {
+			error = "Login inconnu";
+			request.setAttribute("error", error);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+		} else {
 			c = clientService.selectByLogin(login);
-		} catch (Exception e) {
-			message = "Login et/ou password non valide";
-			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
 		}
 
-		if (c.getPassword().equals(password)) {
+		// Login ok, Check si le password correspond au login ,error first
+		if (!BCrypt.checkpw(password, c.getPassword())) {
+			error = "Login/password invalide";
+			request.setAttribute("error", error);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("client", c);
-			message = "Connexion ok";
-			request.setAttribute("message", message);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/clientAjoute.jsp").forward(request, response);
-		} else {
-			message = "Login et/ou password non valide (wouaf)";
-			request.setAttribute("message", message);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
-
 		}
-		// Récup du client avec id
-
-		// Création session
-
-		// Si login et password ok Création session --> renvoie sur liste chiens
-
-		// Sinon --> renvoi vers AjouterClientServlet
-
 	}
-
 }
