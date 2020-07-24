@@ -45,4 +45,9 @@ public class ClientServiceImpl implements IClientService {
 		return existe ? true : false;
 	}
 
+	@Override
+	public void deleteClient(Client pClient) {
+		clientDao.deleteClientBdd(pClient);
+	}
+
 }
