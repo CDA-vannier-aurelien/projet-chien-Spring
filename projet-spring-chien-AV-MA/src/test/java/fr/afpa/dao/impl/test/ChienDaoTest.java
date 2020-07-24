@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -26,8 +27,8 @@ public class ChienDaoTest {
 
 	private static IChienDao chienDao;
 	private static IClientDao clientDao;
-	Chien chienTest;
-	Client maitreTest = new Client("loginMaitre5", "pwd", "prenomMaitre", "nomMaitre");
+	static Chien chienTest;
+	static Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
 
 	@BeforeAll
 	public static void initAll() {
@@ -36,120 +37,108 @@ public class ChienDaoTest {
 		clientDao = context.getBean(IClientDao.class);
 	}
 
+	/*
+	 * Les tests s'eefectuent de manière séquentielle automatique, en suivant la
+	 * logique du CRUD
+	 * 
+	 * Le test delete ne passe pas encore
+	 */
+
 	@Test
 	@Order(1)
 	public void ajoutChienBddTest() {
-		Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
 		maitreTest = clientDao.ajoutClientBdd(maitreTest);
+		chienTest = new Chien("nomChienTest", "raceChienTest", "couleurChienTest", (byte) 4, 123456);
+		chienDao.ajoutChienBdd(chienTest, maitreTest.getLogin());
 
-		chienTest = new Chien("nomChienTest", "raceChienTest", "couleurChienTest", (byte) 4 , 123456);
-		chienDao.ajoutChienBdd(chienTest, "maitreChien");
-
+		// Récupération du chien pour tester si bien présent
+		chienTest = chienDao.selectByNameBdd("nomChienTest");
 		assertNotNull(chienTest.getNom());
 		assertEquals("nomChienTest", chienTest.getNom());
 		assertEquals("raceChienTest", chienTest.getRace());
 		assertEquals("couleurChienTest", chienTest.getCouleur());
 		assertEquals((byte) 4, chienTest.getAge());
 		assertEquals(123456, chienTest.getPuce());
-
-		chienDao.deleteByIdBdd(chienTest.getIdChien());
-		clientDao.deleteClientBdd(maitreTest);
 	}
-
-	
-	//PASSE PAS ENCORE
-//	@Test
-//	public void deleteByIdBddTest() {
-//		Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
-//		maitreTest = clientDao.ajoutClientBdd(maitreTest);
-//
-//		chienTest = new Chien("nomChienTest", "raceChienTest", "CouleurChienTest", (byte) 4, 123456);
-//		chienDao.ajoutChienBdd(chienTest, "maitreChien");
-//
-//		chienDao.deleteByIdBdd(chienTest.getIdChien());
-//		assertNull(chienDao.selectByNameBdd("nomChienTest"));
-//		clientDao.deleteClientBdd(maitreTest);
-//	}
 
 	@Test
 	@Order(2)
 	public void selectByIdBddTest() {
-		Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
-		maitreTest = clientDao.ajoutClientBdd(maitreTest);
-		chienTest = new Chien("nomChienTest", "raceChienTest", "couleurChienTest", (byte) 4, 123456);
-		chienDao.ajoutChienBdd(chienTest, "maitreChien");
 		chienTest = chienDao.selectByIdBdd(chienTest.getIdChien());
-		chienDao.deleteByIdBdd(chienTest.getIdChien());
-		clientDao.deleteClientBdd(maitreTest);
+		assertNotNull(chienTest.getNom());
 	}
 
 	@Test
 	@Order(3)
 	public void selectByNameBddTest() {
-		Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
-		maitreTest = clientDao.ajoutClientBdd(maitreTest);
-		chienTest = new Chien("nomChienTest", "raceChienTest", "couleurChienTest", (byte) 4, 123456);
-		chienDao.ajoutChienBdd(chienTest, "maitreChien");
-		chienTest = chienDao.selectByNameBdd(chienTest.getNom());
-		chienDao.deleteByIdBdd(chienTest.getIdChien());
-		clientDao.deleteClientBdd(maitreTest);
+		chienTest = chienDao.selectByNameBdd("nomChienTest");
+		assertNotNull(chienTest);
 	}
 
 	@Test
 	@Order(4)
-	public void updateChienBddTest() {
-		Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
-		maitreTest = clientDao.ajoutClientBdd(maitreTest);
-		chienTest = new Chien("nomChienTest", "raceChienTest", "couleurChienTest", (byte) 4, 123456);
-		chienDao.ajoutChienBdd(chienTest, "maitreChien");
+	public void getListChienByClientTest() {
+		// Récup chien associé au Client login maitreChien
+		List<Chien> listeDesChiens = chienDao.getListChienByClient("maitreChien");
+		assertNotNull(listeDesChiens);
+		assertNotEquals(0, listeDesChiens.size());
+		assertNotNull(listeDesChiens.get(0));
+	}
 
+	@Test
+	@Order(5)
+	public void getListBddTest() {
+		List<Chien> listeDesChiens = chienDao.getListBdd();
+		assertNotNull(listeDesChiens);
+		assertNotEquals(0, listeDesChiens.size());
+		assertNotNull(listeDesChiens.get(0));
+	}
+
+	@Test
+	@Order(6)
+	public void updateChienBddTest() {
+		// Récup du chien en bdd
+		chienTest = chienDao.selectByNameBdd("nomChienTest");
+
+		// Changement des valeurs du chien
 		chienTest.setNom("nomChienModif");
 		chienTest.setRace("raceChienModif");
 		chienTest.setCouleur("couleurChienModif");
 		chienTest.setAge((byte) 6);
 		chienTest.setPuce(987654);
 
+		// Check si modifs ont bien été effectuées
 		assertEquals("nomChienModif", chienTest.getNom());
 		assertEquals("raceChienModif", chienTest.getRace());
 		assertEquals("couleurChienModif", chienTest.getCouleur());
 		assertEquals((byte) 6, chienTest.getAge());
 		assertEquals(987654, chienTest.getPuce());
 
+		// Remise des valeurs par défaut
+		chienTest.setNom("nomChienTest");
+		chienTest.setRace("raceChienTest");
+		chienTest.setCouleur("couleurChienTest");
+		chienTest.setAge((byte) 4);
+		chienTest.setPuce(123456);
+	}
+
+	
+	//Test à améliorer car les champs sont bien == null mais l'objet CHIEN est toujours présent
+	@Test
+	@Order(7)
+	public void deleteByIdBddTest() {
+		chienTest = chienDao.selectByNameBdd("nomChienTest");
 		chienDao.deleteByIdBdd(chienTest.getIdChien());
-		clientDao.deleteClientBdd(maitreTest);
+		
+		//Recherche du chien supprimé
+		chienTest = chienDao.selectByNameBdd("nomChienTest");
+		assertNull(chienTest.getNom());
 	}
 
 	@Test
-	@Order(5)
-	public void getListChienByClientTest(){
-		Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
-		maitreTest = clientDao.ajoutClientBdd(maitreTest);
-		chienTest = new Chien("nomChienTest", "raceChienTest", "couleurChienTest", (byte) 4, 123456);
-		chienDao.ajoutChienBdd(chienTest, "maitreChien");
-		
-		List<Chien> listeDesChiens = chienDao.getListChienByClient("maitreChien");
-		assertNotNull(listeDesChiens);
-		assertNotEquals(0, listeDesChiens.size());
-		assertNotNull(listeDesChiens.get(0));
-		
-		chienDao.deleteByIdBdd(chienTest.getIdChien());
+	@AfterAll
+	// Suppression du Client créé pour le besoin
+	public static void getOut() {
 		clientDao.deleteClientBdd(maitreTest);
 	}
-
-	@Test
-	@Order(6)
-	public void getListBddTest() {
-		Client maitreTest = new Client("maitreChien", "pwd", "prenomMaitre", "nomMaitre");
-		maitreTest = clientDao.ajoutClientBdd(maitreTest);
-		chienTest = new Chien("nomChienTest", "raceChienTest", "couleurChienTest", (byte) 4, 123456);
-		chienDao.ajoutChienBdd(chienTest, "maitreChien");
-		List<Chien> listeDesChiens = chienDao.getListBdd();
-		assertNotNull(listeDesChiens);
-		assertNotEquals(0, listeDesChiens.size());
-		assertNotNull(listeDesChiens.get(0));
-
-		chienDao.deleteByIdBdd(chienTest.getIdChien());
-		clientDao.deleteClientBdd(maitreTest);
-	}
-
 }

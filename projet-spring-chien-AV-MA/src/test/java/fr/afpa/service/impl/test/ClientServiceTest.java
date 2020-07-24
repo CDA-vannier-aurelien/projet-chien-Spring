@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.context.ApplicationContext;
 
+import fr.afpa.bean.Chien;
 import fr.afpa.bean.Client;
 import fr.afpa.service.IClientService;
 import util.ContextConfigurationType;
@@ -23,6 +25,7 @@ import util.ContextFactory;
 public class ClientServiceTest {
 
 	private static IClientService clientService;
+	static Client clientTest;
 
 	@BeforeAll
 	public static void initAll() {
@@ -30,8 +33,37 @@ public class ClientServiceTest {
 		clientService = context.getBean(IClientService.class);
 	}
 
+	/*
+	 * Les tests s'eefectuent de manière séquentielle automatique, 
+	 * en suivant la logique du CRUD 
+	 * 
+	 */
+	
 	@Test
 	@Order(1)
+	public void ajouterClientTest() {
+		clientTest = new Client("loginTest", "passwordTest", "prenomTest", "nomTest");
+		clientService.ajouterClient(clientTest);
+
+		// Récup en bdd du client ajouté pour test
+		clientTest = clientService.selectByLogin("loginTest");
+		assertNotNull(clientTest);
+		assertEquals("loginTest", clientTest.getLogin());
+		assertEquals("passwordTest", clientTest.getPassword());
+		assertEquals("prenomTest", clientTest.getPrenom());
+		assertEquals("nomTest", clientTest.getNom());
+	}
+
+	@Test
+	@Order(2)
+	public void selectByLoginTest() {
+		// Récup et test si NotNull
+		clientTest = clientService.selectByLogin("loginTest");
+		assertNotNull(clientTest);
+	}
+
+	@Test
+	@Order(3)
 	public void getListTest() {
 		List<Client> listeDesClients = clientService.getList();
 		assertNotNull(listeDesClients);
@@ -40,38 +72,13 @@ public class ClientServiceTest {
 	}
 
 	@Test
-	@Order(2)
-	public void ajouterClientTest() {
-		Client clientTest = new Client("loginTest", "passwordTest", "prenomTest", "nomTest");
-		clientService.ajouterClient(clientTest);
-		clientTest = clientService.selectByLogin("loginTest");
-		assertNotNull(clientTest);
-		assertEquals("loginTest", clientTest.getLogin());
-		assertEquals("passwordTest", clientTest.getPassword());
-		assertEquals("prenomTest", clientTest.getPrenom());
-		assertEquals("nomTest", clientTest.getNom());
-		clientService.deleteClient(clientTest);
-	}
-
-	@Test
-	@Order(3)
+	@Order(4)
 	public void deleteClientBddTest() {
-		Client clientTest = new Client("loginTest", "passwordTest", "prenomTest", "nomTest");
-		clientService.ajouterClient(clientTest);
+		clientTest = clientService.selectByLogin("loginTest");
 		clientService.deleteClient(clientTest);
+
+		//Check si le client n'est plus présent
 		clientTest = clientService.selectByLogin("loginTest");
 		assertNull(clientTest);
 	}
-
-	@Test
-	@Order(4)
-	public void selectByLoginTest() {
-		Client clientTest = new Client("loginTest", "passwordTest", "prenomTest", "nomTest");
-		clientService.ajouterClient(clientTest);
-		clientTest = clientService.selectByLogin("loginTest");
-		assertNotNull(clientTest);
-		clientService.deleteClient(clientTest);
-
-	}
-
 }
