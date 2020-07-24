@@ -21,39 +21,8 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	@Override
-	public void deleteById(int id) {
-		clientDao.deleteByIdBdd(id);
-	}
-
-	@Override
-	public Client selectById(int id) {
-		return clientDao.selectByIdBdd(id);
-	}
-
-	@Override
 	public void ajouterClient(Client c) {
 		clientDao.ajoutClientBdd(c);
-
-	}
-
-	@Override
-	public void updateClient(Client c) {
-		// TODO Auto-generated method stub
-	}
-
-	public void authentifier() {
-
-	}
-
-	public void modifierInformations() {
-
-	}
-
-	public void supprimerCompte() {
-
-	}
-
-	public void inscrire() {
 
 	}
 
