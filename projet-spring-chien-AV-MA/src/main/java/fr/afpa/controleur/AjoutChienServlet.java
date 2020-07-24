@@ -17,6 +17,14 @@ import fr.afpa.bean.Client;
 import fr.afpa.controleur.conf.AbstractServletController;
 import fr.afpa.service.IChienService;
 
+/**
+ * Cette servlet permet la création et l'implémentation d'un nouveau chien.
+ * 
+ * 
+ * @author Aurélien
+ * @version 1.0
+ *
+ */
 @WebServlet(urlPatterns = ("/ajoutChien.do"))
 public class AjoutChienServlet extends AbstractServletController {
 	private static final long serialVersionUID = 1L;
@@ -24,16 +32,16 @@ public class AjoutChienServlet extends AbstractServletController {
 	@Autowired
 	IChienService chienService;
 
-//	@Override
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ajoutChien.jsp").forward(request, response);
-//	}
-
+	/**
+	 * Récupère les informations saisies dans la jsp liste-chien afin de créer un
+	 * nouveau chien.
+	 * 
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// récupération information du client et des informations du chien.
 		HttpSession session = request.getSession();
 		Client c = (Client) session.getAttribute("client");
 		String login = c.getLogin();
@@ -46,6 +54,8 @@ public class AjoutChienServlet extends AbstractServletController {
 
 		boolean parsableByte = chienService.parseByteTest(strAge);
 		boolean parsableLong = chienService.parseLongTest(strPuce);
+
+		// Vérifie la conformité des informations du chien
 		if (!Pattern.matches("[\\D]+", vNom) || !Pattern.matches("[\\D]+", vRace)
 				|| !Pattern.matches("[\\D]+", vCouleur) || parsableByte == false || parsableLong == false) {
 			request.setAttribute("error", "Erreur de saisie");
@@ -58,6 +68,7 @@ public class AjoutChienServlet extends AbstractServletController {
 
 			List<Chien> listeChien = chienService.getListChienByClient(login);
 
+			// Vérifie l'existence du chien dans la BDD associée à ce client.
 			for (Chien vChien : listeChien) {
 				if (vChien.getNom().equals(chien.getNom()) && vChien.getRace().equals(chien.getRace())
 						&& vChien.getAge() == (chien.getAge()) || vChien.getPuce() == (chien.getPuce())) {
@@ -68,6 +79,7 @@ public class AjoutChienServlet extends AbstractServletController {
 				request.setAttribute("existe", "ce chien est déjà enregistré!");
 				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/liste-chiens.jsp").forward(request,
 						response);
+				// Création et ajout de ce chien dans la BDD
 			} else {
 				chienService.ajouterChien(chien, login);
 				chien = chienService.selectByName(vNom);
