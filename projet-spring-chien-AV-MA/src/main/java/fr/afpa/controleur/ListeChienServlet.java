@@ -43,13 +43,21 @@ public class ListeChienServlet extends AbstractServletController {
 
 		// Récupération de la session du client.
 		HttpSession session = request.getSession();
-		Client c = ((Client) session.getAttribute("client"));
 
-		// Récupération de la liste de chien par le biais du login du client.
-		List<Chien> listeDeChiens = chienService.getListChienByClient(c.getLogin());
-		request.setAttribute("listeDeChiens", listeDeChiens);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/liste-chiens.jsp").forward(request, response);
-		// Cette Jsp est à modifier en fonction du nom donné.
+		// test si la session a expirée --> renvoie à la page d'acceuil pour log
+		if (session.getAttribute("client") == null) {
+			request.setAttribute("error", "session expirée veuillez vous reconnecter");
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
+		} else {
+
+			Client c = ((Client) session.getAttribute("client"));
+
+			// Récupération de la liste de chien par le biais du login du client.
+			List<Chien> listeDeChiens = chienService.getListChienByClient(c.getLogin());
+			request.setAttribute("listeDeChiens", listeDeChiens);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/liste-chiens.jsp").forward(request, response);
+			// Cette Jsp est à modifier en fonction du nom donné.
+		}
 	}
 
 }
