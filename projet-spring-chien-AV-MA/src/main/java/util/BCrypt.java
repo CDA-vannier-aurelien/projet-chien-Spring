@@ -15,6 +15,7 @@ package util;
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 /**
@@ -585,4 +586,12 @@ public class BCrypt {
 	public static boolean checkpw(String plaintext, String hashed) {
 		return (hashed.compareTo(hashpw(plaintext, hashed)) == 0);
 	}
+	
+	public static String encodageForce(String pString) {
+		String strEncoded = "";
+		byte[] bytes = pString.getBytes(StandardCharsets.ISO_8859_1);
+		pString = new String(bytes, StandardCharsets.UTF_8);
+		return strEncoded;
+	}
+	
 }
