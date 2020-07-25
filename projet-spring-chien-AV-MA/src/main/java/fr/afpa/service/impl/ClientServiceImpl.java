@@ -35,10 +35,9 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	/**
-	 * Sélectionne un client par son login
+	 * Ajoute un nouveau client
 	 * 
-	 * @param pLogin Login du client à sélectionner
-	 * @return retourne le client désiré par son login
+	 * @param c c étant le nouveau client à créer et ajouter
 	 */
 	@Override
 	public void ajouterClient(Client c) {
@@ -47,9 +46,11 @@ public class ClientServiceImpl implements IClientService {
 	}
 
 	/**
-	 * Ajoute un client
+	 * sélectionne un client par son login
 	 * 
-	 * @param c Client crée en Servlet qui devra être ajouter au Dao puis en BDD
+	 * @return Client client sélectionné par son login
+	 * @param pLogin login du client recherché
+	 * 
 	 */
 	@Override
 	public Client selectByLogin(String pLogin) {
@@ -79,7 +80,7 @@ public class ClientServiceImpl implements IClientService {
 	/**
 	 * Permet de supprimer un client.
 	 * 
-	 * @param clientTest Client que l'on souhaite supprimer.
+	 * @param pClient Client que l'on souhaite supprimer.
 	 */
 	@Override
 	public void deleteClient(Client pClient) {

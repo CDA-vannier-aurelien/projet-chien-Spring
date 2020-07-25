@@ -37,7 +37,7 @@ public interface IClientDao {
 	 * Permet l'enregistrement du client dans la BDD.
 	 * 
 	 * @param c le nouveau client à enregistrer
-	 *
+	 * @return Client client ajouté en base de donnée
 	 * @see ClientServiceImpl#ajouterClient(Client)
 	 */
 	public Client ajoutClientBdd(Client c);
