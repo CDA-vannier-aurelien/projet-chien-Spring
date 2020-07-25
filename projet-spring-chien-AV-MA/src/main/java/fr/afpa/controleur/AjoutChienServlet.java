@@ -37,6 +37,22 @@ public class AjoutChienServlet extends AbstractServletController {
 	 * nouveau chien.
 	 * 
 	 */
+
+	//Controle de session
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+
+		// test si la session a expirée --> renvoie à la page d'acceuil pour authentification
+		if (session.getAttribute("client") == null) {
+			request.setAttribute("error", "session expirée veuillez vous reconnecter");
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/accueil.jsp").forward(request, response);
+		} else {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/liste-chiens.jsp").forward(request, response);
+		}
+	}
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

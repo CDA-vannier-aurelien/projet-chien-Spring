@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Accueil</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -55,7 +55,7 @@
 
 								<div class="form-group">
 									<input id="prenom" type="text" name="prenom"
-										class="form-control" placeholder="Prénom" required>
+										class="form-control" placeholder="PrÃ©nom" required>
 								</div>
 								<div class="form-group">
 									<input id="nom" type="text" name="nom" class="form-control"
