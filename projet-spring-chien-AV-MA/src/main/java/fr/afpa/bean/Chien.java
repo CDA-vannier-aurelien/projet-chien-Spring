@@ -96,11 +96,11 @@ public class Chien {
 	 * donc sans l'id qui est incrémentée.
 	 * 
 	 * @see ChienServiceImpl#ajouterChien(Chien, String)
-	 * @param pNom
-	 * @param pRace
-	 * @param pCouleur
-	 * @param pAge
-	 * @param pPuce
+	 * @param pNom     nom du chien
+	 * @param pRace    race du chien
+	 * @param pCouleur couleur du chien
+	 * @param pAge     age du chien
+	 * @param pPuce    numéro de puce du chien
 	 */
 	public Chien(String pNom, String pRace, String pCouleur, byte pAge, long pPuce) {
 		super();

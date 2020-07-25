@@ -17,7 +17,7 @@ public interface IChienService {
 	/**
 	 * Récupère la liste de tous les chiens
 	 * 
-	 * @return
+	 * @return retourne la liset de tous les chiens
 	 */
 	public List<Chien> getList();
 

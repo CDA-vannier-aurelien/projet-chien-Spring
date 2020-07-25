@@ -17,7 +17,7 @@ import util.BCrypt;
 
 /**
  * @author Mathieu
- * @Version 1.0 Servlet implementation class AjoutClient
+ * @version Servlet pour l'ajout d'un nouveau client.
  */
 @WebServlet("/ajoutClient")
 public class AjoutClientServlet extends AbstractServletController {

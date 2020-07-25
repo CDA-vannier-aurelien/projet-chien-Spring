@@ -26,7 +26,7 @@ public class ChienServiceImpl implements IChienService {
 	/**
 	 * Récupère la liste de tous les chiens
 	 * 
-	 * @return
+	 * @return Retourne la liste de tous les chiens.
 	 */
 	@Override
 	public List<Chien> getList() {
@@ -81,7 +81,7 @@ public class ChienServiceImpl implements IChienService {
 	/**
 	 * Récupération de la liste de tous les chiens du client en cours de session
 	 * 
-	 * @param login login du client connecté
+	 * @param pLogin login du client connecté
 	 * @return retourne la liste de tous les chiens du client connecté
 	 */
 	@Override

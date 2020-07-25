@@ -3,7 +3,7 @@ package util;
 /**
  * Permet de savoir quel type de configuration on veut pour le context
  * 
- * @author
+ * @author MOMO
  *
  */
 public enum ContextConfigurationType {
